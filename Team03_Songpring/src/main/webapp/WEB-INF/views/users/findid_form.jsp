@@ -14,6 +14,10 @@
 	<h1>아이디 찾기 폼 입니다.</h1>
 	<form action="${pageContext.request.contextPath }/users/findid.do" method="post" id="myForm" novalidate>
 		<div class="form-group">
+			<label for="id">이름</label>
+			<input class="form-control" type="text" name="name" id="name" placeholder="가입한 이름을 입력하세요."/>
+		</div>
+		<div class="form-group">
 			<label for="email">이메일</label>
 			<input class="form-control" type="email" name="email" id="email" placeholder="E-mail@gmail.com"/>
 		</div>

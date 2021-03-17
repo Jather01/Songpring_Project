@@ -45,34 +45,8 @@ public class UsersController {
 		mView.setViewName("users/manager/users_manage");
 		return mView;
 	}
-	@RequestMapping("/users/findid_form")
-	public ModelAndView findid_form(ModelAndView mView) {
-		mView.setViewName("users/findid_form");
-		return mView;
-	}
-	@RequestMapping("/users/findid")
-	public ModelAndView findid(ModelAndView mView, HttpServletRequest request) {
-		service.findid(request, mView);
-		mView.setViewName("users/findid");
-		return mView;
-	}
-	@RequestMapping("/users/findpwd_form")
-	public ModelAndView findpwd_form(ModelAndView mView) {
-		mView.setViewName("users/findpwd_form");
-		return mView;
-	}
-	@RequestMapping("/users/findpwd_form2")
-	public ModelAndView findpwd_form2(@RequestParam String id, ModelAndView mView) {
-		mView.addObject("id",id);
-		mView.setViewName("users/findpwd_form2");
-		return mView;
-	}
-	@RequestMapping("/users/findpwd")
-	public ModelAndView findpwd(ModelAndView mView, HttpServletRequest request) {
-		service.findpwd(request, mView);
-		mView.setViewName("users/findpwd");
-		return mView;
-	}
+	
+	
 	@RequestMapping(value="/users/private/update.do", method=RequestMethod.POST)
 	public ModelAndView update(ModelAndView mView, UsersDto dto, HttpSession session) {
 		service.updateUser(dto, session);
@@ -130,7 +104,8 @@ public class UsersController {
 		return "users/logout";
 	}
 	@RequestMapping(value = "/users/login", method = RequestMethod.POST)
-	public String login(HttpServletRequest request, HttpServletResponse response) {
+	public String login(HttpServletRequest request,
+			HttpServletResponse response) {
 		//로그인에 관련된 로직을 서비스를 통해서 처리한다.
 		service.loginLogic(request, response);
 		//view page  로 forward  이동해서 응답
@@ -183,5 +158,37 @@ public class UsersController {
 		Map<String, Object>map=new HashMap<String, Object>();
 		map.put("isExist", isExist);
 		return map;
+	}
+	
+	@RequestMapping("/users/findid_form")
+	public ModelAndView findid_form(ModelAndView mView) {
+		mView.setViewName("users/findid_form");
+		return mView;
+	}
+	@RequestMapping("/users/findid")
+	public ModelAndView findid(ModelAndView mView, HttpServletRequest request) {
+		service.findid(request, mView);
+		mView.setViewName("users/findid");
+		return mView;
+	}
+	
+	@RequestMapping("/users/findpwd")
+	public ModelAndView findpwd(ModelAndView mView, UsersDto dto, HttpServletRequest request) {
+		service.findpwd(mView, dto, request);
+		mView.setViewName("users/findpwd");
+		return mView;
+	}
+	
+	//비밀번호 수정 폼 요청처리
+	@RequestMapping("/users/findpwdform")
+	public String findpwdform() {
+		return "users/findpwdform";
+	}
+	//비밀번호 수정 폼 요청처리
+	@RequestMapping("/users/findpwdform2")
+	public ModelAndView findpwd_form2(@RequestParam String id, ModelAndView mView) {
+      mView.addObject("id",id);
+      mView.setViewName("users/findpwdform2");
+      return mView;
 	}
 }

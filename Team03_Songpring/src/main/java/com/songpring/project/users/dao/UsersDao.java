@@ -30,7 +30,8 @@ public interface UsersDao {
 	//인자로 전달된 아이디에 해당하는 비밀번호를 리턴하는 메소드
 	public String getPwd(String id);
 	//아이디 찾기
-	public UsersDto findid(String email);
+	public UsersDto findid(UsersDto dto);
 	//비밀번호 찾기
-	public UsersDto findpwd(String id);
+	//비밀번호 수정하고 성공여부 리턴
+	public int findpwd(UsersDto dto);
 }

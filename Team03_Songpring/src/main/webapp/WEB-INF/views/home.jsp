@@ -21,7 +21,7 @@
 				</c:otherwise>
 			</c:choose>
 			<li><a href="users/findid_form.do">아이디 찾기</a></li>
-			<li><a href="users/findpwd_form.do">비밀번호 찾기</a></li>
+			<li><a href="users/findpwdform.do">비밀번호 찾기</a></li>
 			<li><a href="shop/list1.do">쇼핑몰 목록 보기1</a></li>
 			<li><a href="shop/list2.do">쇼핑몰 목록 보기2</a></li>
 			<li><a href="shop/manager/uploadform.do">책 판매 업로드</a></li>

@@ -14,7 +14,7 @@
 	<p> 
 		${requestScope.dto.name }님의 아이디는 <strong>${requestScope.dto.id }</strong>입니다.
 		<a href="${pageContext.request.contextPath }/users/loginform.do">로그인 하러 가기</a>
-		<a href="${pageContext.request.contextPath }/users/findpwd_form.do">비밀번호 찾기</a>
+		<a href="${pageContext.request.contextPath }/users/findpwdform.do">비밀번호 찾기</a>
 	</p>
 </div>
 
