@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.songpring.project.shop.dto.ShopDto" alias="shopDto"/>
+		<typeAlias type="com.songpring.project.users.dto.UsersDto" alias="usersDto"/>
+		<typeAlias type="com.songpring.project.notice.dto.NoticeDto" alias="noticeDto"/>
+		<typeAlias type="com.songpring.project.shop.dto.ShopReviewDto" alias="reviewDto"/>
+		<typeAlias type="com.songpring.project.qna.dto.QnADto" alias="qnaDto"/>
+	</typeAliases>
+	<mappers>
+		<mapper resource="com/songpring/project/mybatis/ShopMapper.xml"/>
+		<mapper resource="com/songpring/project/mybatis/UsersMapper.xml"/>
+		<mapper resource="com/songpring/project/mybatis/NoticeMapper.xml"/>
+		<mapper resource="com/songpring/project/mybatis/ReviewMapper.xml"/>
+		<mapper resource="com/songpring/project/mybatis/QnAMapper.xml"/>
+	</mappers>
+</configuration>

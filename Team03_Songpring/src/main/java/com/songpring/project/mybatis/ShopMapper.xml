@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="shop">
+<insert id="insert" parameterType="shopDto">
+	INSERT INTO songpring_shop
+	(num, title, imagePath, genre, writer, publisher, regdate, price, content, sellCount, page, bookSize)
+	VALUES(songpring_shop_seq.NEXTVAL, #{title}, #{imagePath}, #{genre}, #{writer},
+		#{publisher}, #{regdate}, #{price}, #{content}, 0, #{page}, #{bookSize})
+</insert>
+<update id="update" parameterType="shopDto">
+	UPDATE board_cafe
+	SET title=#{title}, imagePath=#{imagePath}, genre=#{genre}, writer=#{writer}, publisher=#{publisher},
+		regdate=#{regdate}, price=#{price}, content=#{content}, page=#{page}, bookSize=#{bookSize}
+	WHERE num=#{num}
+</update>
+<delete id="delete" parameterType="int">
+	DELETE FROM songpring_shop
+	WHERE num=#{num}
+</delete>
+<select id="getData" parameterType="int" resultType="shopDto">
+	SELECT num, title, imagePath, genre, writer, publisher, TO_CHAR(regdate , 'YYYY-MM-DD') as regdate, price, content, sellCount, page, bookSize
+	FROM songpring_shop
+	WHERE num=#{num}
+</select>
+<select id="getList" parameterType="shopDto" resultType="shopDto">
+	SELECT *
+	FROM
+		(SELECT result1.*, ROWNUM AS rnum
+		FROM
+			(SELECT num, title, imagePath, genre, writer, publisher, TO_CHAR(regdate , 'YYYY-MM') as regdate, price, content, sellCount, page, bookSize
+			FROM songpring_shop
+			<choose>
+				<when test="title != null and genre == 'all'">
+					WHERE title LIKE '%'||#{title}||'%'
+				</when>
+				<when test="title != null and genre != null">
+					WHERE title LIKE '%'||#{title}||'%'
+					AND genre=#{genre}
+				</when>
+				<when test="genre != null">
+					WHERE genre=#{genre}
+				</when>
+			</choose>
+			<choose>
+				<when test="order == 'highPrice'">
+					ORDER BY price ASC
+				</when>
+				<when test="order == 'lowPrice'">
+					ORDER BY price DESC
+				</when>
+				<when test="order == 'sellCount'">
+					ORDER BY sellCount ASC
+				</when>
+				<when test="order == 'date'">
+					ORDER BY regdate ASC
+				</when>
+				<otherwise>
+					ORDER BY num ASC
+				</otherwise>
+			</choose>
+			) result1)
+	WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
+</select>
+<select id="getCount" parameterType="shopDto" resultType="int">
+	SELECT NVL(MAX(ROWNUM), 0)
+	FROM songpring_shop
+		<choose>
+			<when test="title != null and genre == 'all'">
+				WHERE title LIKE '%'||#{title}||'%'
+			</when>
+			<when test="title != null and genre != null">
+				WHERE title LIKE '%'||#{title}||'%'
+				AND genre=#{genre}
+			</when>
+			<when test="genre != null">
+				WHERE genre=#{genre}
+			</when>
+		</choose>
+</select>
+<update id="addSellCount" parameterType="int">
+	UPDATE songpring_shop
+	SET sellCount=sellCount+1
+	WHERE num=#{num}
+</update>
+<!-- 카트 담기 -->
+<insert id="addCart">
+ insert into tbl_cart (cartNum, userId, gdsNum, cartStock)
+     values (tbl_cart_seq.nextval, #{userId}, #{gdsNum}, #{cartStock})
+</insert>
+
+<!-- 카트 리스트 -->
+<select id="cartList" resultType="shopDto">
+ select
+     row_number() over(order by c.cartNum desc) as num,
+     c.cartNum, c.userId, c.gdsNum, c.cartStock, c.addDate,
+     g.gdsName, g.gdsPrice, g.gdsThumbImg
+ from tbl_cart c
+     inner join tbl_goods g
+         on c.gdsNum = g.gdsNum   
+     where c.userId = #{userId}
+</select>
+
+<!-- 카트 삭제 -->
+<delete id="deleteCart">
+ delete tbl_cart
+     where cartNum = #{cartNum}
+         and userId = #{userId}
+</delete>
+<!-- 주문 정보 -->
+<insert id="orderInfo">
+ insert into tbl_order(orderId, userId, orderRec, userAddr1, userAddr2, userAddr3, orderPhon, amount)
+     values(#{orderId}, #{userId}, #{orderRec}, #{userAddr1}, #{userAddr2}, #{userAddr3}, #{orderPhon}, #{amount})
+</insert>
+
+<!-- 주문 상세 정보 --> 
+<insert id="orderInfo_Details">
+ insert into tbl_order_details(orderDetailsNum, orderId, gdsNum, cartStock)
+     select tbl_order_details_seq.nextval, #{orderId}, gdsNum, cartStock
+         from tbl_cart   
+</insert> 
+
+<!-- 카트 비우기 -->
+<delete id="cartAllDelete">
+ delete tbl_cart
+     where userId = #{userId}
+</delete>
+</mapper>

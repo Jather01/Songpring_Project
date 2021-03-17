@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="users">
+	<update id="updateGrade" parameterType="usersDto">
+		UPDATE users
+		SET grade=#{grade}
+		WHERE id=#{id}
+	</update>
+	<select id="getList" parameterType="usersDto" resultType="usersDto">
+		SELECT *
+		FROM (SELECT result1.*, ROWNUM AS rnum
+			FROM (SELECT name, id, email, useraddr1, useraddr2, useraddr3, TO_CHAR(regdate , 'YYYY-MM-DD') as regdate, grade
+				FROM users
+				<choose>
+					<when test="name != null">
+						WHERE name LIKE '%'||#{name}||'%'
+					</when>
+					<when test="id != null">
+						WHERE id LIKE '%'||#{id}||'%'
+					</when>
+				</choose>
+				<choose>
+					<when test="order == 'id'">
+						ORDER BY id DESC
+					</when>
+					<when test="order == 'name'">
+						ORDER BY name DESC, id DESC
+					</when>
+					<when test="order == 'regdate'">
+						ORDER BY regdate DESC, id DESC
+					</when>
+					<when test="order == 'grade'">
+						ORDER BY grade DESC, id DESC
+					</when>
+					<otherwise>
+						ORDER BY id DESC
+					</otherwise>
+				</choose>
+				) result1)
+		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
+	</select>
+	<select id="getCount" parameterType="usersDto" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM users
+		<choose>
+			<when test="name != null">
+				WHERE name LIKE '%'||#{name}||'%'
+			</when>
+			<when test="id != null">
+				WHERE id LIKE '%'||#{id}||'%'
+			</when>
+			<when test="grade != null">
+				WHERE grade LIKE '%'||#{grade}||'%'
+			</when>
+		</choose>
+</select>
+	<select id="getGrade" parameterType="String" resultType="String">
+		SELECT grade
+		FROM users
+		WHERE id=#{id}
+	</select>
+	<update id="updatePwd" parameterType="usersDto">
+		UPDATE users
+		SET pwd=#{newPwd}
+		WHERE id=#{id}
+	</update>
+	<update id="update" parameterType="usersDto">
+		UPDATE users
+		SET email=#{email}, userAddr1=#{userAddr1}, userAddr2=#{userAddr2}, userAddr3=#{userAddr3}
+		WHERE id=#{id}
+	</update>
+	<delete id="delete" parameterType="String">
+		DELETE FROM users
+		WHERE id=#{id}
+	</delete>
+	<select id="getData" parameterType="String" resultType="usersDto">
+		SELECT id, pwd, email, userAddr1, userAddr2, userAddr3,
+		TO_CHAR(regdate, 'YY-MM-DD HH24:MI') AS regdate
+		FROM users
+		WHERE id=#{id}
+	</select>
+	<insert id="insert" parameterType="usersDto">
+		INSERT INTO users
+		(name, id, pwd, email, userAddr1, userAddr2, userAddr3, regdate, grade)
+		VALUES(#{name}, #{id}, #{pwd}, #{email}, #{userAddr1}, #{userAddr2}, #{userAddr3}, SYSDATE, 'user')
+	</insert>
+	<select id="isExist" parameterType="String" resultType="usersDto">
+		SELECT *
+		FROM users
+		WHERE id=#{id}
+	</select>
+	<select id="getPwd" parameterType="String" resultType="String">
+		SELECT pwd
+		FROM users
+		WHERE id=#{id}
+	</select>
+	<select id="findid" parameterType="String" resultType="usersDto">
+		SELECT id, name
+		FROM users
+		WHERE email=#{email}
+	</select>
+	<select id="findpwd" parameterType="String" resultType="usersDto">
+		SELECT id, pwd
+		FROM users
+		WHERE id=#{id}
+	</select>
+</mapper>

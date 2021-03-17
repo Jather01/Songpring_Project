@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qna">
+	<insert id="insert" parameterType="qnaDto">
+		INSERT INTO songpring_QnA
+		(num, title, writer, content, regdate, secret)
+		VALUES(songpring_QnA_seq.NEXTVAL, #{title}, #{writer}, #{content}, SYSDATE, #{secret})
+	</insert>
+	<update id="update" parameterType="qnaDto">
+		UPDATE songpring_QnA
+		SET title=#{title}, content=#{content}, secret=#{secret}
+		WHERE num=#{num}
+	</update>
+	<delete id="delete" parameterType="int">
+		DELETE FROM songpring_QnA
+		WHERE num=#{num}
+	</delete>
+	<select id="getData" parameterType="int" resultType="qnaDto">
+		SELECT num, title, writer, content, TO_CHAR(regdate , 'YYYY-MM-DD HH24:MI') as regdate, secret, managerComment
+		FROM songpring_QnA
+		WHERE num=#{num}
+	</select>
+	<select id="getList" parameterType="qnaDto" resultType="qnaDto">
+		SELECT *
+		FROM
+			(SELECT result1.*, ROWNUM AS rnum
+			FROM
+				(SELECT num, title, writer, content, TO_CHAR(regdate , 'YYYY-MM-DD') as regdate, secret
+				FROM songpring_QnA
+				<choose>
+					<when test="title != null and content != null">
+						WHERE title LIKE '%'||#{title}||'%' 
+						OR content LIKE '%'||#{content}||'%'
+					</when>
+					<when test="title != null">
+						WHERE title LIKE '%'||#{title}||'%'
+					</when>
+					<when test="writer != null">
+						WHERE writer LIKE '%'||#{writer}||'%'
+					</when>
+				</choose>
+				ORDER BY num DESC) result1)
+		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
+	</select>
+	<select id="getCount" parameterType="qnaDto" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM songpring_QnA
+		<choose>
+			<when test="title != null and content != null">
+				WHERE title LIKE '%'||#{title}||'%' 
+				OR content LIKE '%'||#{content}||'%'
+			</when>
+			<when test="title != null">
+				WHERE title LIKE '%'||#{title}||'%'
+			</when>
+			<when test="writer != null">
+				WHERE writer LIKE '%'||#{writer}||'%'
+			</when>
+		</choose>		
+	</select>
+	<update id="commentUpdate" parameterType="qnaDto">
+		UPDATE songpring_QnA
+		SET managerComment=#{managerComment}
+		WHERE num=#{num}
+	</update>
+	<update id="commentDelete" parameterType="int">
+		UPDATE songpring_QnA
+		SET managerComment=null
+		WHERE num=#{num}
+	</update>
+</mapper>

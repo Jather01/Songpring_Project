@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="notice">
+	<update id="update" parameterType="noticeDto">
+		UPDATE songpring_notice
+		SET title=#{title}, content=#{content}
+		WHERE num=#{num}
+	</update>
+	<delete id="delete" parameterType="int">
+		DELETE FROM songpring_notice
+		WHERE num=#{num}
+	</delete>
+	<select id="getCount" parameterType="noticeDto" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM songpring_notice
+		<choose>
+			<when test="content != null">
+				WHERE content LIKE '%'||#{content}||'%'
+			</when>
+			<when test="title != null">
+				WHERE title LIKE '%'||#{title}||'%'
+			</when>
+		</choose>
+	</select>
+	<select id="getList" parameterType="noticeDto" resultType="noticeDto">
+		SELECT *
+		FROM
+			(SELECT result1.*, ROWNUM AS rnum
+			FROM
+				(SELECT num,title,content,TO_CHAR(regdate , 'YYYY-MM-DD') as regdate
+				FROM songpring_notice
+				<choose>
+					<when test="content != null">
+						WHERE content LIKE '%'||#{content}||'%'
+					</when>
+					<when test="title != null">
+						WHERE title LIKE '%'||#{title}||'%'
+					</when>
+				</choose>
+				ORDER BY num ASC) result1)
+		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
+	</select>
+	<insert id="insert" parameterType="noticeDto">
+		INSERT INTO songpring_notice
+		(num, title, content, regdate)
+		VALUES(songpring_notice_seq.NEXTVAL, #{title}, #{content}, SYSDATE)
+	</insert>
+	<select id="getData" parameterType="int" resultType="noticeDto">
+		SELECT num,title,content,TO_CHAR(regdate , 'YYYY-MM-DD HH24:MI') as regdate
+		FROM songpring_notice
+		WHERE num=#{num}
+	</select>
+</mapper>
