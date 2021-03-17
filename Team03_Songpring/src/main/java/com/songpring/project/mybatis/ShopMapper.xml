@@ -82,10 +82,11 @@
 	SET sellCount=sellCount+1
 	WHERE num=#{num}
 </update>
+
 <!-- 카트 담기 -->
 <insert id="addCart">
- insert into tbl_cart (cartNum, userId, gdsNum, cartStock)
-     values (tbl_cart_seq.nextval, #{userId}, #{gdsNum}, #{cartStock})
+ insert into SONGPRING_CART (cartNum, userId, gdsNum, cartStock)
+     values (SONGPRING_CART_seq.nextval, #{userId}, #{gdsNum}, #{cartStock})
 </insert>
 
 <!-- 카트 리스트 -->
@@ -94,34 +95,34 @@
      row_number() over(order by c.cartNum desc) as num,
      c.cartNum, c.userId, c.gdsNum, c.cartStock, c.addDate,
      g.gdsName, g.gdsPrice, g.gdsThumbImg
- from tbl_cart c
-     inner join tbl_goods g
+ from SONGPRING_CART c
+     inner join SONGPRING_SHOP g
          on c.gdsNum = g.gdsNum   
      where c.userId = #{userId}
 </select>
 
 <!-- 카트 삭제 -->
 <delete id="deleteCart">
- delete tbl_cart
+ delete SONGPRING_CART
      where cartNum = #{cartNum}
          and userId = #{userId}
 </delete>
 <!-- 주문 정보 -->
 <insert id="orderInfo">
- insert into tbl_order(orderId, userId, orderRec, userAddr1, userAddr2, userAddr3, orderPhon, amount)
+ insert into SONGPRING_ORDER(orderId, userId, orderRec, userAddr1, userAddr2, userAddr3, orderPhon, amount)
      values(#{orderId}, #{userId}, #{orderRec}, #{userAddr1}, #{userAddr2}, #{userAddr3}, #{orderPhon}, #{amount})
 </insert>
 
 <!-- 주문 상세 정보 --> 
 <insert id="orderInfo_Details">
- insert into tbl_order_details(orderDetailsNum, orderId, gdsNum, cartStock)
-     select tbl_order_details_seq.nextval, #{orderId}, gdsNum, cartStock
-         from tbl_cart   
+ insert into SONGPRING_ORDER_DETAILS(orderDetailsNum, orderId, gdsNum, cartStock)
+     select SONGPRING_ORDER_DETAILS_seq.nextval, #{orderId}, gdsNum, cartStock
+         from SONGPRING_CART 
 </insert> 
 
 <!-- 카트 비우기 -->
 <delete id="cartAllDelete">
- delete tbl_cart
+ delete SONGPRING_CART
      where userId = #{userId}
 </delete>
 </mapper>
