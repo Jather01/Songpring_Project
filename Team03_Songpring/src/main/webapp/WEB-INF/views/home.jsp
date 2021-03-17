@@ -31,6 +31,7 @@
 			<li><a href="qna/list.do">QnA 목록</a></li>
 			<li><a href="qna/private/insertform.do">QnA 등록</a></li>
 			<li><a href="test.do">test</a></li>
+			ㄴ
 		</ul>
 	</div>
 </body>
