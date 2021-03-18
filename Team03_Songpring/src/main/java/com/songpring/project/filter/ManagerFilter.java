@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.songpring.project.users.dao.UsersDao;
 
-@WebFilter(urlPatterns = {"/notice/manager/*", "/qna/manager/*", "/shop/manager/*", "/users/manager/*"})
+@WebFilter(urlPatterns = {"/notice/manager/*", "/qna/manager/*", "/shop/manager/*", "/users/manager/*","/manager/*"})
 public class ManagerFilter implements Filter{
 	@Autowired
 	private UsersDao dao;

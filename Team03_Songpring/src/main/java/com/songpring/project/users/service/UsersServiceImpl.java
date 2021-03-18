@@ -137,6 +137,7 @@ public class UsersServiceImpl implements UsersService {
 		mView.addObject("grade", grade);
 		mView.addObject("pageNum", pageNum);
 	}
+	
 	@Override
 	public void addUser(UsersDto dto) {
 		//비밀번호를 암호화할 객체 생성
@@ -216,6 +217,7 @@ public class UsersServiceImpl implements UsersService {
 		if(isValid) {
 			//HttpSession 객체를 이용해서 로그인 처리를 한다. 
 			request.getSession().setAttribute("id", id);
+			// 유저의 권한을 세션에 저장한다.(권한 확인용)
 			String userGrade=dao.getGrade(id);
 			request.getSession().setAttribute("userGrade", userGrade);
 		}
@@ -338,16 +340,30 @@ public class UsersServiceImpl implements UsersService {
 
 	@Override
 	public void findid(HttpServletRequest request, ModelAndView mView) {
+		String name=request.getParameter("name");
 		String email=request.getParameter("email");
-		UsersDto dto=dao.findid(email);
+		UsersDto dto2=new UsersDto();
+		dto2.setName(name);
+		dto2.setEmail(email);
+		UsersDto dto=dao.findid(dto2);
 		mView.addObject("dto", dto);
 		
 	}
 
 	@Override
-	public void findpwd(HttpServletRequest request, ModelAndView mView) {
-		String id=request.getParameter("id");
-		UsersDto dto=dao.findpwd(id);
-		mView.addObject("dto", dto);
+	public void findpwd(ModelAndView mView, UsersDto dto, HttpServletRequest request) {
+		//로그인된 아이디를 읽어와서
+		String id=request.getParameter("id");		
+
+		// 새 비밀번호를 암호화 해서
+		String newPwd=new BCryptPasswordEncoder().encode(dto.getNewPwd());
+		//4. dto에 아이디 수정 반영한다.
+		dto.setId(id);
+		dto.setNewPwd(newPwd);
+		dao.findpwd(dto);
+		//로그아웃 처리를 한다.
+		//session.removeAttribute("id");
+
+		mView.addObject("dto",dto);
 	}
 }

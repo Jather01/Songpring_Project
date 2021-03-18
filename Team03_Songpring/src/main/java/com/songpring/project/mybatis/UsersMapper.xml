@@ -94,14 +94,14 @@
 		FROM users
 		WHERE id=#{id}
 	</select>
-	<select id="findid" parameterType="String" resultType="usersDto">
+	<select id="findid" parameterType="usersDto" resultType="usersDto">
 		SELECT id, name
 		FROM users
-		WHERE email=#{email}
+		WHERE name=#{name} AND email=#{email} 
 	</select>
-	<select id="findpwd" parameterType="String" resultType="usersDto">
-		SELECT id, pwd
-		FROM users
+	<update id="findpwd" parameterType="usersDto">
+		UPDATE users
+		SET pwd=#{newPwd}
 		WHERE id=#{id}
-	</select>
+	</update>
 </mapper>

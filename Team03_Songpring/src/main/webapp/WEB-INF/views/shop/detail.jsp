@@ -107,8 +107,8 @@
 				</table>
 				<form action="${pageContext.request.contextPath }/shop/private/addCart.do" method="post">
 					<span>구매수량</span>
-					<input type="number" class="numBox" id="gbsNum" min="1" max="100" value="1"/>
-					<button type="submit" class="btn btn-primary" id="addCart_btn">장바구니에 담기</button>
+					<input type="number" class="numBox" min="1" max="100" value="1"/>
+					<button type="submit" class="btn btn-primary">장바구니에 담기</button>
 				</form>
 			</div>
 		</div>
@@ -119,35 +119,35 @@
 		<a href="${pageContext.request.contextPath }/users/member/private/buy.do">구매하기</a>
 			<p class="addToCart">
 				<button type="button" class="addCart_btn">카트에 담기</button>
-<script>
-	$("#addCart_btn").click(function(){
-		var gdsNum = $("#gdsNum").val();
-		var cartStock = $(".numBox").val();
-	
-		var data = {
-			gdsNum : gdsNum,
-			cartStock : cartStock
-		};
-   
-		$.ajax({
-			url : "${pageContext.request.contextPath }/shop/private/addCart.do",
-			type : "post",
-			data : data,
-			success : function(result){
-				if(result == 1) {
-					alert("카트 담기 성공");
-					$(".numBox").val("1");
-				} else {
-					alert("회원만 사용할 수 있습니다.")
-					$(".numBox").val("1");
-				}
-			},
-			error : function(){
-			alert("카트 담기 실패");
-			}
-		});
-	});
-</script>
+				<script>
+					$("#addCart_btn").click(function(){
+						var gdsNum = $("#gdsNum").val();
+						var cartStock = $(".numBox").val();
+					
+						var data = {
+							gdsNum : gdsNum,
+							cartStock : cartStock
+						};
+				   
+						$.ajax({
+							url : "${pageContext.request.contextPath }/shop/private/addCart.do",
+							type : "post",
+							data : data,
+							success : function(result){
+								if(result == 1) {
+									alert("카트 담기 성공");
+									$(".numBox").val("1");
+								} else {
+									alert("회원만 사용할 수 있습니다.")
+									$(".numBox").val("1");
+								}
+							},
+							error : function(){
+							alert("카트 담기 실패");
+							}
+						});
+					});
+				</script>
 			</p>
 		</div>
 	<c:if test="${sessionScope.userGrade eq 'manager'}">

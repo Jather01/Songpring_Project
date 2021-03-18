@@ -19,11 +19,9 @@ public interface UsersService {
 	//아이디가 존재하는지 여부를 리턴하는 메소드
 	public boolean isExistId(String inputId);
 	//로그인폼에 관련된 처리를 하는 메소드
-	public void loginformLogic(HttpServletRequest request,
-			ModelAndView mView);
+	public void loginformLogic(HttpServletRequest request, ModelAndView mView);
 	//로그인 관련 처리를 하는 메소드
-	public void loginLogic(HttpServletRequest request,
-			HttpServletResponse response);
+	public void loginLogic(HttpServletRequest request, HttpServletResponse response);
 	//개인정보를 ModelAndView 객체에 담아주는 메소드
 	public void getInfo(ModelAndView mView, HttpSession session);
 	//개인정보를 삭제처리 하는 메소드
@@ -36,6 +34,6 @@ public interface UsersService {
 	public void updateUser(UsersDto dto, HttpSession session);
 	//아이디를 이름과 이메일로 찾는 메소드
 	public void findid(HttpServletRequest request, ModelAndView mView);
-	//비밀번호를 아이디로 찾는 메소드
-	public void findpwd(HttpServletRequest request, ModelAndView mView);
+	//비밀번호 수정 처리를 하고 성공여부를 ModelAndView 객체에다 담아주는 메소드
+	public void findpwd(ModelAndView mView, UsersDto dto, HttpServletRequest request);
 }

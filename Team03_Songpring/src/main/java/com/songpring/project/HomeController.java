@@ -17,4 +17,9 @@ public class HomeController {
 	public String managerError() {
 		return "manager_error";
 	}
+
+	@RequestMapping("/manager/managerPage")
+	public String managerPage() {
+		return "manager/managerPage";
+	}
 }
