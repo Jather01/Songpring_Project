@@ -7,7 +7,13 @@
 			<div class="navbar-nav" style="width: 100%;">
 				<table style="width: 100%;">
 					<tr>
-						<td style="width: 60%;"></td>
+						<td style="width: 37%;"></td>
+						<td align = "center" style="width: 20%;">
+							<a href="${pageContext.request.contextPath }/home.do">
+								<img style="width: 244px; height: 65px;" src="${pageContext.request.contextPath }/resources/images/logo.png" />
+							</a>
+						</td>
+						<td style="width: 3%;"></td>
 						<td align = "center"><small>
 							<c:choose>
 								<c:when test="${empty sessionScope.id }"><a class="nav-link" href="${pageContext.request.contextPath }/users/loginform.do">로그인</a></c:when>
@@ -29,30 +35,5 @@
 			</div>
 		</div>
 	</nav>
-	<div class="row" style="margin-top: 20px; margin-bottom: 20px; border: 0px solid white; height: 50px">
-		<div class="col-6 col-md-4"></div>
-		<div class="col-6 col-md-4 navbar">
-			<a href="${pageContext.request.contextPath }/">
-				<img style="width: 50px; height: 50px;" src="${pageContext.request.contextPath }/resources/images/yellowbird.png" />
-			</a>
-			<form class="form-inline" method="get" action="${pageContext.request.contextPath }/shop/list1.do">
-				<input class="form-control mr-sm-2" type="text" name="keyword" placeholder="검색할 책 제목 입력..." value="${keyword}" />
-				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
-			</form>
-		</div>
-		<div class="col-6 col-md-4"></div>
-	</div>
-	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-		<div class="navbar-nav" style="width: 100%;">
-			<table style="width: 100%;">
-				<tr>
-					<td align = "center"><a class="nav-link" href="${pageContext.request.contextPath }/shop/list1.do?genre=novel">소설</a></td>
-					<td align = "center"><a class="nav-link" href="${pageContext.request.contextPath }/shop/list1.do?genre=culture">교양</a></td>
-					<td align = "center"><a class="nav-link" href="${pageContext.request.contextPath }/shop/list1.do?genre=workbook">문제집</a></td>
-					<td align = "center"><a class="nav-link" href="${pageContext.request.contextPath }/shop/list1.do?genre=comicbook">만화</a></td>
-					<td align = "center"><a class="nav-link" href="${pageContext.request.contextPath }/shop/list1.do?genre=dictionary">사전</a></td>
-				</tr>
-			</table>
-		</div>
-	</nav>
+	<div style="height: 50px"></div>
 </div>
