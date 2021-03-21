@@ -21,6 +21,7 @@
 </style>
 </head>
 <body>
+<jsp:include page="../../include/navbar.jsp"></jsp:include>
 <div class="container">
 	<form action="update.do" method="post" id="updateForm">
 		<input type="hidden" name="num" id="num" value="${shopDto.num }"/>
@@ -82,6 +83,7 @@
 		<img id="bookMain" src="${pageContext.request.contextPath }${shopDto.imagePath }"/>
 	</div>
 </div>
+<jsp:include page="../../include/bottomnavbar.jsp"></jsp:include>
 <!-- SmartEditor 에서 필요한 javascript 로딩  -->
 <script src="${pageContext.request.contextPath }/SmartEditor/js/HuskyEZCreator.js"></script>
 <script>
@@ -128,7 +130,7 @@
 		try {
 			elClickedObj.form.submit();
 		} catch(e) {}
-		$("#insertForm").submit();
+		$("#updateForm").submit();
 	}
 	
 	function setDefaultFont() {

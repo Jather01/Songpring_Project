@@ -9,6 +9,7 @@
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 </head>
 <body>
+<jsp:include page="../../include/navbar.jsp"></jsp:include>
 <div class="container">
 	<div class="pagination justify-content-center">
 		<form action="users_list.do" method="post">
@@ -96,6 +97,7 @@
 		</ul>
 	</nav>
 </div>
+<jsp:include page="../../include/bottomnavbar.jsp"></jsp:include>
 <script>
 	function chageGradeSelect(id){
 		var langSelect = document.getElementById("grade_"+id);

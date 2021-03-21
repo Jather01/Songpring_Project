@@ -21,6 +21,7 @@
 </style>
 </head>
 <body>
+<jsp:include page="../../include/navbar.jsp"></jsp:include>
 <div class="container">
 	<form action="upload.do" method="post" id="insertForm">
 		<input type="hidden" name="imagePath" id="imagePath" />
@@ -81,6 +82,7 @@
 		<img id="bookMain"/>
 	</div>
 </div>
+<jsp:include page="../../include/bottomnavbar.jsp"></jsp:include>
 <!-- SmartEditor 에서 필요한 javascript 로딩  -->
 <script src="${pageContext.request.contextPath }/SmartEditor/js/HuskyEZCreator.js"></script>
 <script>

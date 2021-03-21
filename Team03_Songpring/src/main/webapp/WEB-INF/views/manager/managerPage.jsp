@@ -8,6 +8,7 @@
 <jsp:include page="../include/resource.jsp"></jsp:include>
 </head>
 <body>
+<jsp:include page="../include/navbar.jsp"></jsp:include>
 	<div class="container">
 		<ul>
 			<li><a href="${pageContext.request.contextPath }/shop/manager/uploadform.do">책 판매 업로드</a></li>
@@ -19,5 +20,6 @@
 			<li><a href="#">배송관리</a></li>
 		</ul>
 	</div>
+<jsp:include page="../include/bottomnavbar.jsp"></jsp:include>
 </body>
 </html>

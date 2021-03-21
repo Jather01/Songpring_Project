@@ -21,6 +21,8 @@ public interface ShopService {
 	public void getList(ModelAndView mView, HttpServletRequest request);
 	// 책 하나의 정보
 	public void getDetail(int num, HttpServletRequest request, ModelAndView mView);
+	// 랜덤한 책 하나의 정보
+	public void getDataRandom(ModelAndView mView);
 	// 책 정보 수정
 	public void updateBook(ShopDto dto);
 	// 책 판매 종료
@@ -33,6 +35,8 @@ public interface ShopService {
 	public void insertReview(HttpServletRequest request);
 	// 리뷰 삭제
 	public void deleteReview(HttpServletRequest request);
+	// 책 판매 글 삭제할 때 리뷰 전부 삭제
+	public void deleteAllReivews(int bookNum);
 	// 리뷰 수정
 	public void updateReview(ShopReviewDto dto);
 	//카트 담기

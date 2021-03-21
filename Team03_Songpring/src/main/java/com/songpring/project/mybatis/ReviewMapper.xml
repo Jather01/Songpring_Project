@@ -26,6 +26,10 @@
 		DELETE FROM songpring_review
 		WHERE num=#{num}
 	</delete>
+	<delete id="deleteAllReviews" parameterType="int">
+		DELETE FROM songpring_review
+		WHERE bookNum=#{bookNum}
+	</delete>
 	<select id="getData" parameterType="int" resultType="reviewDto">
 		SELECT num, writer, content, TO_CHAR(regdate , 'YYYY-MM-DD HH24:MI') as regdate
 		FROM songpring_review

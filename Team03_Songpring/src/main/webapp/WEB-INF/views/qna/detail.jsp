@@ -61,6 +61,7 @@
 </style>
 </head>
 <body>
+<jsp:include page="../include/navbar.jsp"></jsp:include>
 <div class="container">
 	<table class="table table-bordered">
 		<tr>
@@ -126,6 +127,7 @@
 		</div>
 	</c:if>
 </div>
+<jsp:include page="../include/bottomnavbar.jsp"></jsp:include>
 <script>
 	//댓글 수정 링크를 눌렀을때 호출되는 함수 등록
 	$(document).on("click",".comment-update-link", function(){

@@ -8,7 +8,7 @@
 		#{publisher}, #{regdate}, #{price}, #{content}, 0, #{page}, #{bookSize})
 </insert>
 <update id="update" parameterType="shopDto">
-	UPDATE board_cafe
+	UPDATE songpring_shop
 	SET title=#{title}, imagePath=#{imagePath}, genre=#{genre}, writer=#{writer}, publisher=#{publisher},
 		regdate=#{regdate}, price=#{price}, content=#{content}, page=#{page}, bookSize=#{bookSize}
 	WHERE num=#{num}
@@ -21,6 +21,13 @@
 	SELECT num, title, imagePath, genre, writer, publisher, TO_CHAR(regdate , 'YYYY-MM-DD') as regdate, price, content, sellCount, page, bookSize
 	FROM songpring_shop
 	WHERE num=#{num}
+</select>
+<select id="getDataRandom" resultType="shopDto">
+	SELECT num, title, imagePath, genre, writer, publisher, TO_CHAR(regdate , 'YYYY-MM') as regdate, price, content
+	FROM (SELECT * 
+		FROM songpring_shop
+		ORDER BY dbms_random.value)
+	WHERE rownum BETWEEN 1 AND 4
 </select>
 <select id="getList" parameterType="shopDto" resultType="shopDto">
 	SELECT *

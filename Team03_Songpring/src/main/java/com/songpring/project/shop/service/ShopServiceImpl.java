@@ -192,6 +192,11 @@ public class ShopServiceImpl implements ShopService {
 		mView.addObject("shopDto", shopDto);
 	}
 	@Override
+	public void getDataRandom(ModelAndView mView) {
+		List<ShopDto> list=shopDao.getDataRandom();
+		mView.addObject("list",list);
+	}
+	@Override
 	public void updateBook(ShopDto dto) {
 		shopDao.update(dto);
 	}
@@ -254,6 +259,10 @@ public class ShopServiceImpl implements ShopService {
 		} else {
 			throw new DBFailException("타인의 리뷰를 삭제할 수 없습니다.");
 		}
+	}
+	@Override
+	public void deleteAllReivews(int bookNum) {
+		reviewDao.deleteAllReviews(bookNum);
 	}
 	@Override
 	public void updateReview(ShopReviewDto dto) {

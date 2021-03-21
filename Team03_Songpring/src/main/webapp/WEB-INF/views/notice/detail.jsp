@@ -9,6 +9,7 @@
 <jsp:include page="../include/resource.jsp"></jsp:include>
 </head>
 <body>
+<jsp:include page="../include/navbar.jsp"></jsp:include>
 	<div class="container">
 		<table class="table">
 			<tr>
@@ -22,5 +23,6 @@
 			</tr>
 		</table>
 	</div>
+<jsp:include page="../include/bottomnavbar.jsp"></jsp:include>
 </body>
 </html>

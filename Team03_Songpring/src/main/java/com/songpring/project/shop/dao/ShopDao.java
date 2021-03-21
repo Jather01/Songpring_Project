@@ -17,6 +17,8 @@ public interface ShopDao {
 	public void delete(int num);
 	//책 하나의 정보 얻어오기
 	public ShopDto getData(int num);
+	// 책 4개의 정보를 랜덤으로 얻어오기
+	public List<ShopDto> getDataRandom();
 	//책 목록 얻어오기 (페이징 처리와 검색 키워드를 고려한 목록)
 	public List<ShopDto> getList(ShopDto dto);
 	//책의 갯수 얻어오기(검색 키워드에 해당하는 갯수)

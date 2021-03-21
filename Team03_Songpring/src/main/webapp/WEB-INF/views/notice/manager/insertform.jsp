@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>/notice/private/insertform.jsp</title>
+<jsp:include page="../../include/resource.jsp"></jsp:include>
 <style>
 	#content{
 		width: 99%;
@@ -14,6 +15,7 @@
 </style>
 </head>
 <body>
+<jsp:include page="../../include/navbar.jsp"></jsp:include>
 	<div class="container">
 		<form action="insert.do" method="post">
 			<div class="form-group">
@@ -27,6 +29,7 @@
 			<button class="btn btn-secondary" type="submit" onclick="submitContents(this)">저장</button>
 		</form>
 	</div>
+	<jsp:include page="../../include/bottomnavbar.jsp"></jsp:include>
 	<%--
 		[ SmartEditor 를 사용하기 위한 설정 ]
 	

@@ -9,6 +9,7 @@
 <jsp:include page="../include/resource.jsp"></jsp:include>
 </head>
 <body>
+<jsp:include page="../include/navbar.jsp"></jsp:include>
 	<div class="container">
 		<table class="table table-striped">
 			<thead class="table-dark">
@@ -86,5 +87,6 @@
 			<div class="alert alert-success"><strong>${totalRow}</strong>개의 자료가 검색 되었습니다.</div>
 		</c:if>
 	</div>
+<jsp:include page="../include/bottomnavbar.jsp"></jsp:include>
 </body>
 </html>

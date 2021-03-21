@@ -15,6 +15,7 @@
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 </head>
 <body>
+<jsp:include page="../../include/navbar.jsp"></jsp:include>
 <div class="container">
 	<form action="insert.do" method="post">
 		<input type="hidden" id="writer" name="writer" value="${sessionScope.id }" />
@@ -33,6 +34,7 @@
 		<button class="btn btn-primary" type="submit" onclick="submitContents(this);">저장</button>
 	</form>
 </div>
+<jsp:include page="../../include/bottomnavbar.jsp"></jsp:include>
 <%--
 	[ SmartEditor 를 사용하기 위한 설정 ]
 	

@@ -35,6 +35,11 @@ public class ShopReviewDaoImpl implements ShopReviewDao{
 	}
 
 	@Override
+	public void deleteAllReviews(int bookNum) {
+		session.delete("review.deleteAllReviews",bookNum);
+	}
+	
+	@Override
 	public ShopReviewDto getData(int num) {
 		ShopReviewDto dto=session.selectOne("review.getData",num);
 		return dto;

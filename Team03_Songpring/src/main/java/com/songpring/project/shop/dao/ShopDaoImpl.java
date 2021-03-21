@@ -30,13 +30,19 @@ public class ShopDaoImpl implements ShopDao{
 
 	@Override
 	public void delete(int num) {
-		int count=session.delete("shop.delete", num);
+		session.delete("shop.delete", num);
 	}
 
 	@Override
 	public ShopDto getData(int num) {
 		ShopDto dto=session.selectOne("shop.getData", num);
 		return dto;
+	}
+
+	@Override
+	public List<ShopDto> getDataRandom() {
+		List<ShopDto> list=session.selectList("shop.getDataRandom");
+		return list;
 	}
 
 	@Override

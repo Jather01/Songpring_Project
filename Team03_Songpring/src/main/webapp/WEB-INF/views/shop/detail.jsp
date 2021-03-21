@@ -47,7 +47,7 @@
 		height: 100px;
 	}
 	/* 댓글에 댓글을 다는 폼과 수정폼은 일단 숨긴다. */
-	.reviews .review-form{
+	.update-form {
 		display: none;
 	}
 	/* .reply_icon 을 li 요소를 기준으로 배치 하기 */
@@ -70,6 +70,7 @@
 </style>
 </head>
 <body>
+<jsp:include page="../include/navbar.jsp"></jsp:include>
 <div class="container">
 	<div class="row no-gutters">
 		<div class="img-div">
@@ -108,7 +109,7 @@
 				<form action="${pageContext.request.contextPath }/shop/private/addCart.do" method="post">
 					<span>구매수량</span>
 					<input type="number" class="numBox" min="1" max="100" value="1"/>
-					<button type="submit" class="btn btn-primary">장바구니에 담기</button>
+					<button type="submit" class="btn btn-primary">카트에 담기</button>
 				</form>
 			</div>
 		</div>
@@ -117,43 +118,44 @@
 		<h4>책 설명</h4>
 		<p>${shopDto.content }</p>
 		<a href="${pageContext.request.contextPath }/users/member/private/buy.do">구매하기</a>
-			<p class="addToCart">
-				<button type="button" class="addCart_btn">카트에 담기</button>
-				<script>
-					$("#addCart_btn").click(function(){
-						var gdsNum = $("#gdsNum").val();
-						var cartStock = $(".numBox").val();
-					
-						var data = {
-							gdsNum : gdsNum,
-							cartStock : cartStock
-						};
-				   
-						$.ajax({
-							url : "${pageContext.request.contextPath }/shop/private/addCart.do",
-							type : "post",
-							data : data,
-							success : function(result){
-								if(result == 1) {
-									alert("카트 담기 성공");
-									$(".numBox").val("1");
-								} else {
-									alert("회원만 사용할 수 있습니다.")
-									$(".numBox").val("1");
-								}
-							},
-							error : function(){
-							alert("카트 담기 실패");
+		<p class="addToCart">
+			<button type="button" class="addCart_btn">카트에 담기</button>
+			<script>
+				$("#addCart_btn").click(function(){
+					var gdsNum = $("#gdsNum").val();
+					var cartStock = $(".numBox").val();
+				
+					var data = {
+						gdsNum : gdsNum,
+						cartStock : cartStock
+					};
+			   
+					$.ajax({
+						url : "${pageContext.request.contextPath }/shop/private/addCart.do",
+						type : "post",
+						data : data,
+						success : function(result){
+							if(result == 1) {
+								alert("카트 담기 성공");
+								$(".numBox").val("1");
+							} else {
+								alert("회원만 사용할 수 있습니다.")
+								$(".numBox").val("1");
 							}
-						});
+						},
+						error : function(){
+						alert("카트 담기 실패");
+						}
 					});
-				</script>
-			</p>
-		</div>
+				});
+			</script>
+		</p>
+	</div>
 	<c:if test="${sessionScope.userGrade eq 'manager'}">
 		<a class="btn btn-secondary" href="manager/updateform.do?num=${shopDto.num }">책 정보 수정</a>
 		<a class="btn btn-secondary" href="manager/delete.do?num=${shopDto.num }">책 정보 삭제</a>
 	</c:if>
+	<div style="height: 20px"></div>
 	<!-- 원글에 리뷰를 작성하는 form -->
 	<form class="review-form insert-form" action="private/review_insert.do" method="post">
 		<!-- 원글의 글번호가 bookNum 번호가 된다. -->
@@ -199,42 +201,42 @@
 			</c:forEach>
 		</ul>
 	</div>
-	<nav>
-	<ul class="pagination justify-content-center">
-		<c:choose>
-			<c:when test="${startPageNum ne 1 }">
-				<li class="page-item">
-					<a class="page-link" href="detail.do?num=${shopDto.num }&pageNum=${startPageNum-1 }#paging">&laquo;</a>
+	<nav class="navbar justify-content-center">
+		<ul class="pagination justify-content-center">
+			<c:choose>
+				<c:when test="${startPageNum ne 1 }">
+					<li class="page-item">
+						<a class="page-link" href="detail.do?num=${shopDto.num }&pageNum=${startPageNum-1 }#paging">&laquo;</a>
+					</li>
+				</c:when>
+				<c:otherwise>
+					<li class="page-item disabled">
+						<a class="page-link" href="javascript:">&laquo;</a>
+					</li>
+				</c:otherwise>
+			</c:choose>
+			<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
+				<li class="page-item ${i eq pageNum? 'active' : '' }">
+					<a class="page-link" href="detail.do?num=${shopDto.num }&pageNum=${i}#paging">${i}</a>
 				</li>
-			</c:when>
-			<c:otherwise>
-				<li class="page-item disabled">
-					<a class="page-link" href="javascript:">&laquo;</a>
-				</li>
-			</c:otherwise>
-		</c:choose>
-		<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
-			<li class="page-item ${i eq pageNum? 'active' : '' }">
-				<a class="page-link" href="detail.do?num=${shopDto.num }&pageNum=${i}#paging">${i}</a>
-			</li>
-		</c:forEach>
-		<c:choose>
-			<c:when test="${endPageNum ne totalPageCount }">
-				<li class="page-item">
-					<a class="page-link" href="detail.do?num=${shopDto.num }&pageNum=${endPageNum+1}#paging">&raquo;</a>
-				</li>
-			</c:when>
-			<c:otherwise>
-				<li class="page-item disabled">
-					<a class="page-link" href="javascript:">&raquo;</a>
-				</li>
-			</c:otherwise>
-		</c:choose>
-	</ul>
-</nav>
+			</c:forEach>
+			<c:choose>
+				<c:when test="${endPageNum ne totalPageCount }">
+					<li class="page-item">
+						<a class="page-link" href="detail.do?num=${shopDto.num }&pageNum=${endPageNum+1}#paging">&raquo;</a>
+					</li>
+				</c:when>
+				<c:otherwise>
+					<li class="page-item disabled">
+						<a class="page-link" href="javascript:">&raquo;</a>
+					</li>
+				</c:otherwise>
+			</c:choose>
+		</ul>
+	</nav>
 </div>
+<jsp:include page="../include/bottomnavbar.jsp"></jsp:include>
 <script>
-	
 	//댓글 수정 링크를 눌렀을때 호출되는 함수 등록
 	$(document).on("click",".review-update-link", function(){
 		/*

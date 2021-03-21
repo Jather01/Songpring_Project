@@ -38,6 +38,7 @@ public class ShopController {
 	// 책 판매 종료
 	@RequestMapping("/shop/manager/delete")
 	public String delete(@RequestParam int num) {
+		service.deleteAllReivews(num);
 		service.deleteBook(num);
 		return "shop/manager/delete";
 	}
@@ -69,13 +70,6 @@ public class ShopController {
 	public ModelAndView list1(ModelAndView mView, HttpServletRequest request) {
 		service.getList(mView, request);
 		mView.setViewName("shop/list1");
-		return mView;
-	}
-	// 책 목록
-	@RequestMapping("/shop/list2")
-	public ModelAndView list2(ModelAndView mView, HttpServletRequest request) {
-		service.getList(mView, request);
-		mView.setViewName("shop/list2");
 		return mView;
 	}
 	// 책 판매 업로드
