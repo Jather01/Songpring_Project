@@ -13,6 +13,8 @@ public interface ShopReviewDao {
 	public void update(ShopReviewDto dto);
 	//댓글 삭제
 	public void delete(int num);
+	//댓글 전부 삭제
+	public void deleteAllReviews(int bookNum);
 	//댓글 하나의 정보를 리턴하는 메소드
 	public ShopReviewDto getData(int num);
 	//댓글의 갯수를 리턴하는 메소드

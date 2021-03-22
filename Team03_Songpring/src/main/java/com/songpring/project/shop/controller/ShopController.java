@@ -1,7 +1,5 @@
 package com.songpring.project.shop.controller;
 
-import java.text.DecimalFormat;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +9,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,22 +19,25 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.songpring.project.cart.dto.CartDto;
 import com.songpring.project.cart.dto.CartListDto;
-import com.songpring.project.order.dto.OrderDetailDto;
 import com.songpring.project.order.dto.OrderDto;
+import com.songpring.project.order.dto.OrderListDto;
 import com.songpring.project.shop.dto.ShopDto;
 import com.songpring.project.shop.dto.ShopReviewDto;
 import com.songpring.project.shop.service.ShopService;
-import com.songpring.project.users.dto.UsersDto;
+import com.songpring.project.users.service.UsersService;
 
 @Controller
 public class ShopController {
 	// 의존객체 DI
 	@Autowired
 	private ShopService service;
+	@Autowired
+	private UsersService uService; 
 	
 	// 책 판매 종료
 	@RequestMapping("/shop/manager/delete")
 	public String delete(@RequestParam int num) {
+		service.deleteAllReivews(num);
 		service.deleteBook(num);
 		return "shop/manager/delete";
 	}
@@ -69,13 +69,6 @@ public class ShopController {
 	public ModelAndView list1(ModelAndView mView, HttpServletRequest request) {
 		service.getList(mView, request);
 		mView.setViewName("shop/list1");
-		return mView;
-	}
-	// 책 목록
-	@RequestMapping("/shop/list2")
-	public ModelAndView list2(ModelAndView mView, HttpServletRequest request) {
-		service.getList(mView, request);
-		mView.setViewName("shop/list2");
 		return mView;
 	}
 	// 책 판매 업로드
@@ -128,7 +121,6 @@ public class ShopController {
 		mView.setViewName("redirect:/shop/detail.do?num="+bookNum);
 		return mView;
 	}
-
 	// 카트 담기
 	@ResponseBody
 	@RequestMapping(value = "/shop/private/addCart", method = RequestMethod.POST)
@@ -146,34 +138,27 @@ public class ShopController {
 
 		return result;
 	}
-
 	// 카트목록
-	@RequestMapping(value = "/shop/private/cartList", method = RequestMethod.GET)
-	public void getCartList(HttpSession session, Model model) {
-
-		UsersDto users = (UsersDto) session.getAttribute("users");
-		String userId = users.getId();
-
+	@RequestMapping("/shop/private/cartList")
+	public ModelAndView getCartList(HttpSession session, ModelAndView mView) {
+		String userId=(String)session.getAttribute("id");
+		uService.getInfo(mView, session);
 		List<CartListDto> cartList = service.cartList(userId);
-
-		model.addAttribute("cartList", cartList);
-
+		mView.addObject("cartList", cartList);
+		mView.setViewName("shop/private/cartList");
+		return mView;
 	}
-
 	// 카트 삭제
 	@ResponseBody
 	@RequestMapping(value = "/shop/private/deleteCart", method = RequestMethod.POST)
 	public int deleteCart(HttpSession session, @RequestParam(value = "chbox[]") List<String> chArr, CartDto cart){
-
-		UsersDto users = (UsersDto) session.getAttribute("users");
-		String userId = users.getId();
+		String userId = (String)session.getAttribute("id");
 
 		int result = 0;
 		int cartNum = 0;
 
-		if (users != null) {
+		if (userId != null) {
 			cart.setUserId(userId);
-
 			for (String i : chArr) {
 				cartNum = Integer.parseInt(i);
 				cart.setCartNum(cartNum);
@@ -185,35 +170,40 @@ public class ShopController {
 	}
 	//카트 상품 주문
 	@RequestMapping(value = "/shop/private/cartList", method = RequestMethod.POST)
-	public String order(HttpSession session, OrderDto order, OrderDetailDto orderDetail){
+	public String order(HttpSession session, OrderDto order){
+		String userId = (String)session.getAttribute("id");
 
-	UsersDto users = (UsersDto) session.getAttribute("users");
-	String userId = users.getId();
-
-	Calendar cal = Calendar.getInstance();
-	 int year = cal.get(Calendar.YEAR);
-	 String ym = year + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1);
-	 String ymd = ym +  new DecimalFormat("00").format(cal.get(Calendar.DATE));
-	 String subNum = "";
-
-	 for(int i = 1; i <= 6; i ++) {
-	  subNum += (int)(Math.random() * 10);
-	 }
-
-	 String orderId = ymd + "_" + subNum;
-
-	 order.setOrderId(orderId);
-	 order.setUserId(userId);
-
-
-	 service.orderInfo(order); 
-
-	 orderDetail.setOrderId(orderId);   
-	 service.orderInfo_Details(orderDetail); 
-
-	 service.cartAllDelete(userId);
-
-	 return "redirect:/shop/private/orderList";  
+		String orderId = System.currentTimeMillis()+userId;
+	
+		order.setOrderId(orderId);
+		order.setUserId(userId);
+		service.orderInfo(order); 
+		service.orderInfo_Details(order); 
+	
+		service.cartAllDelete(userId);
+	
+		return "redirect:/shop/private/orderList.do";
 	}
-
+	// 주문 정보
+	@RequestMapping("/shop/private/orderList")
+	public ModelAndView orderList(HttpSession session, ModelAndView mView) {
+		String userId=(String)session.getAttribute("id");
+		List<OrderDto> orderList=service.orderList(userId);
+		mView.addObject("orderList",orderList);
+		mView.setViewName("shop/private/orderList");
+		return mView;
+	}
+	// 주문 상세 정보
+	@RequestMapping("/shop/private/orderView")
+	public ModelAndView orderInfo(HttpSession session, ModelAndView mView, @RequestParam("orderId") String orderId) {
+		String userId=(String)session.getAttribute("id");
+		
+		OrderDto order=new OrderDto();
+		order.setUserId(userId);
+		order.setOrderId(orderId);
+		List<OrderListDto> orderView=service.orderView(order);
+		mView.addObject("orderView", orderView);
+		mView.setViewName("shop/private/orderView");
+		return mView;
+	}
 }

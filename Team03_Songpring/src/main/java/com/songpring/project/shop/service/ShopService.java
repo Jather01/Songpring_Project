@@ -9,8 +9,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.songpring.project.cart.dto.CartDto;
 import com.songpring.project.cart.dto.CartListDto;
-import com.songpring.project.order.dto.OrderDetailDto;
 import com.songpring.project.order.dto.OrderDto;
+import com.songpring.project.order.dto.OrderListDto;
 import com.songpring.project.shop.dto.ShopDto;
 import com.songpring.project.shop.dto.ShopReviewDto;
 
@@ -21,6 +21,8 @@ public interface ShopService {
 	public void getList(ModelAndView mView, HttpServletRequest request);
 	// 책 하나의 정보
 	public void getDetail(int num, HttpServletRequest request, ModelAndView mView);
+	// 랜덤한 책 하나의 정보
+	public void getDataRandom(ModelAndView mView);
 	// 책 정보 수정
 	public void updateBook(ShopDto dto);
 	// 책 판매 종료
@@ -33,6 +35,8 @@ public interface ShopService {
 	public void insertReview(HttpServletRequest request);
 	// 리뷰 삭제
 	public void deleteReview(HttpServletRequest request);
+	// 책 판매 글 삭제할 때 리뷰 전부 삭제
+	public void deleteAllReivews(int bookNum);
 	// 리뷰 수정
 	public void updateReview(ShopReviewDto dto);
 	//카트 담기
@@ -41,10 +45,14 @@ public interface ShopService {
 	public List<CartListDto> cartList(String userId);
 	//카트 삭제
 	public void deleteCart(CartDto cart);
+	// 특정 유저의 주문 목록
+	public List<OrderDto> orderList(String userId);
 	// 주문 정보
-	public void orderInfo(OrderDto order);	
+	public void orderInfo(OrderDto order);
 	// 주문 상세 정보
-	public void orderInfo_Details(OrderDetailDto orderDetail);
+	public void orderInfo_Details(OrderDto order);
+	// 특정 주문 보기
+	public List<OrderListDto> orderView(OrderDto order);
 	// 카트 비우기
 	public void cartAllDelete(String userId);
 }

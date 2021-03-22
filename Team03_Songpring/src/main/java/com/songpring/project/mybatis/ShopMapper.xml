@@ -8,7 +8,7 @@
 		#{publisher}, #{regdate}, #{price}, #{content}, 0, #{page}, #{bookSize})
 </insert>
 <update id="update" parameterType="shopDto">
-	UPDATE board_cafe
+	UPDATE songpring_shop
 	SET title=#{title}, imagePath=#{imagePath}, genre=#{genre}, writer=#{writer}, publisher=#{publisher},
 		regdate=#{regdate}, price=#{price}, content=#{content}, page=#{page}, bookSize=#{bookSize}
 	WHERE num=#{num}
@@ -21,6 +21,13 @@
 	SELECT num, title, imagePath, genre, writer, publisher, TO_CHAR(regdate , 'YYYY-MM-DD') as regdate, price, content, sellCount, page, bookSize
 	FROM songpring_shop
 	WHERE num=#{num}
+</select>
+<select id="getDataRandom" resultType="shopDto">
+	SELECT num, title, imagePath, genre, writer, publisher, TO_CHAR(regdate , 'YYYY-MM') as regdate, price, content
+	FROM (SELECT * 
+		FROM songpring_shop
+		ORDER BY dbms_random.value)
+	WHERE rownum BETWEEN 1 AND 4
 </select>
 <select id="getList" parameterType="shopDto" resultType="shopDto">
 	SELECT *
@@ -82,47 +89,58 @@
 	SET sellCount=sellCount+1
 	WHERE num=#{num}
 </update>
-
 <!-- 카트 담기 -->
-<insert id="addCart">
- insert into SONGPRING_CART (cartNum, userId, gdsNum, cartStock)
-     values (SONGPRING_CART_seq.nextval, #{userId}, #{gdsNum}, #{cartStock})
+<insert id="addCart" parameterType="cartDto">
+	insert into SONGPRING_CART (cartNum, userId, gdsNum, cartStock)
+	values (SONGPRING_CART_seq.nextval, #{userId}, #{gdsNum}, #{cartStock})
 </insert>
-
 <!-- 카트 리스트 -->
-<select id="cartList" resultType="shopDto">
- select
-     row_number() over(order by c.cartNum desc) as num,
-     c.cartNum, c.userId, c.gdsNum, c.cartStock, c.addDate,
-     g.gdsName, g.gdsPrice, g.gdsThumbImg
- from SONGPRING_CART c
-     inner join SONGPRING_SHOP g
-         on c.gdsNum = g.gdsNum   
-     where c.userId = #{userId}
+<select id="cartList" resultType="cartListDto" parameterType="String">
+	SELECT c.cartNum as cartNum, c.userId as userId, c.gdsNum as gdsNum, c.cartStock as cartStock, c.addDate as addDate,
+		s.num as num, s.title as gdsName, s.genre as genre, s.price as gdsPrice, s.imagePath as gdsThumbImg
+	FROM songpring_cart c,songpring_shop s
+	WHERE c.userId=#{userId} and c.gdsNum = s.num
+	ORDER BY addDate DESC
 </select>
-
 <!-- 카트 삭제 -->
-<delete id="deleteCart">
- delete SONGPRING_CART
-     where cartNum = #{cartNum}
-         and userId = #{userId}
+<delete id="deleteCart" parameterType="cartDto">
+	delete SONGPRING_CART
+	where cartNum = #{cartNum}
+	and userId = #{userId}
 </delete>
+<!-- 특정 유저의 주문 목록 -->
+<select id="orderList" parameterType="String" resultType="orderDto">
+	select orderId, userId, orderRec, addrNum, userAddr1, userAddr2, userAddr3, orderPhon, amount, orderDate
+	from songpring_order
+    where userId = #{userId}
+</select>
 <!-- 주문 정보 -->
-<insert id="orderInfo">
- insert into SONGPRING_ORDER(orderId, userId, orderRec, userAddr1, userAddr2, userAddr3, orderPhon, amount)
-     values(#{orderId}, #{userId}, #{orderRec}, #{userAddr1}, #{userAddr2}, #{userAddr3}, #{orderPhon}, #{amount})
+<insert id="orderInfo" parameterType="orderDto">
+	insert into SONGPRING_ORDER(orderId, userId, orderRec, addrNum, userAddr1, userAddr2, userAddr3, orderPhon, amount)
+	values(#{orderId}, #{userId}, #{orderRec}, #{addrNum}, #{userAddr1}, #{userAddr2}, #{userAddr3}, #{orderPhon}, #{amount})
 </insert>
-
 <!-- 주문 상세 정보 --> 
-<insert id="orderInfo_Details">
- insert into SONGPRING_ORDER_DETAILS(orderDetailsNum, orderId, gdsNum, cartStock)
-     select SONGPRING_ORDER_DETAILS_seq.nextval, #{orderId}, gdsNum, cartStock
-         from SONGPRING_CART 
-</insert> 
-
+<insert id="orderInfo_Details" parameterType="orderDto">
+	insert into SONGPRING_ORDER_DETAILS(orderDetailsNum, orderId, gdsNum, cartStock)
+	select SONGPRING_ORDER_DETAILS_seq.nextval, #{orderId}, gdsNum, cartStock
+	from SONGPRING_CART c
+	WHERE c.userId=#{userId}
+</insert>
+<!-- 특정 주문 목록 -->
+<select id="orderView" parameterType="orderDto" resultType="orderListDto">
+	select o.orderId as orderId, o.userId as userId, o.orderRec as orderRec, o.addrNum as addrNum, o.userAddr1 as userAddr1,
+		o.userAddr2 as userAddr2, o.userAddr3 as userAddr3, o.orderPhon as orderPhon, o.amount as amount, o.orderDate as orderDate,
+		d.orderDetailsNum as orderDetailsNum, d.gdsNum as gdsNum, d.cartStock as cartStock, s.title as title, s.imagePath as imagePath, s.price as price
+	from SONGPRING_ORDER o
+	inner join SONGPRING_ORDER_DETAILS d
+		on o.orderId = d.orderId
+	inner join SONGPRING_SHOP s
+		on d.gdsNum = s.num
+	where o.userId = #{userId} AND o.orderId = #{orderId}
+</select>
 <!-- 카트 비우기 -->
-<delete id="cartAllDelete">
- delete SONGPRING_CART
-     where userId = #{userId}
+<delete id="cartAllDelete" parameterType="String">
+	delete SONGPRING_CART
+	where userId = #{userId}
 </delete>
 </mapper>

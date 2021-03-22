@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import com.songpring.project.cart.dto.CartDto;
 import com.songpring.project.cart.dto.CartListDto;
-import com.songpring.project.order.dto.OrderDetailDto;
 import com.songpring.project.order.dto.OrderDto;
+import com.songpring.project.order.dto.OrderListDto;
 import com.songpring.project.shop.dto.ShopDto;
 
 @Repository
@@ -30,13 +30,19 @@ public class ShopDaoImpl implements ShopDao{
 
 	@Override
 	public void delete(int num) {
-		int count=session.delete("shop.delete", num);
+		session.delete("shop.delete", num);
 	}
 
 	@Override
 	public ShopDto getData(int num) {
 		ShopDto dto=session.selectOne("shop.getData", num);
 		return dto;
+	}
+
+	@Override
+	public List<ShopDto> getDataRandom() {
+		List<ShopDto> list=session.selectList("shop.getDataRandom");
+		return list;
 	}
 
 	@Override
@@ -72,19 +78,31 @@ public class ShopDaoImpl implements ShopDao{
 	}
 
 	@Override
-	public void orderInfo(OrderDto order) {
-		session.insert("shop.orderInfo", order);
-
+	public List<OrderDto> orderList(String userId) {
+		List<OrderDto> list=session.selectList("shop.orderList", userId);
+		return list;
 	}
 
 	@Override
-	public void orderInfo_Details(OrderDetailDto orderDetail) {
-		session.insert("shop.orderInfo_Details", orderDetail);
+	public void orderInfo(OrderDto order) {
+		session.insert("shop.orderInfo", order);
 	}
 
+	@Override
+	public void orderInfo_Details(OrderDto order) {
+		session.insert("shop.orderInfo_Details", order);
+	}
+
+	@Override
+	public List<OrderListDto> orderView(OrderDto order) {
+		List<OrderListDto> list=session.selectList("shop.orderView", order);
+		return list;
+	}
+	
 	// 카트 비우기
 	@Override
 	public void cartAllDelete(String userId){
 		session.delete("shop.cartAllDelete", userId);
 	}
+
 }

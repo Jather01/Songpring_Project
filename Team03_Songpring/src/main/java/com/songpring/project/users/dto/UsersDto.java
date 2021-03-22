@@ -8,6 +8,7 @@ public class UsersDto {
 	private String profile;
 	private String regdate;
 	private String newPwd;
+	private String addrNum;
 	private String userAddr1;
 	private String userAddr2;
 	private String userAddr3;
@@ -19,20 +20,22 @@ public class UsersDto {
 	private int endRowNum;
 	public UsersDto() {}
 	public UsersDto(String name, String id, String pwd, String email, String profile, String regdate, String newPwd,
-			String userAddr1, String userAddr2, String userAddr3, String grade, String order, int startRowNum, int endRowNum) {
+			String addrNum, String userAddr1, String userAddr2, String userAddr3, String grade, String order,
+			int startRowNum, int endRowNum) {
 		super();
-		this.name=name;
+		this.name = name;
 		this.id = id;
 		this.pwd = pwd;
 		this.email = email;
 		this.profile = profile;
 		this.regdate = regdate;
 		this.newPwd = newPwd;
+		this.addrNum = addrNum;
 		this.userAddr1 = userAddr1;
 		this.userAddr2 = userAddr2;
 		this.userAddr3 = userAddr3;
 		this.grade = grade;
-		this.order=order;
+		this.order = order;
 		this.startRowNum = startRowNum;
 		this.endRowNum = endRowNum;
 	}
@@ -77,6 +80,12 @@ public class UsersDto {
 	}
 	public void setNewPwd(String newPwd) {
 		this.newPwd = newPwd;
+	}
+	public String getAddrNum() {
+		return addrNum;
+	}
+	public void setAddrNum(String addrNum) {
+		this.addrNum = addrNum;
 	}
 	public String getUserAddr1() {
 		return userAddr1;

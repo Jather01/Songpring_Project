@@ -9,6 +9,11 @@
 		<typeAlias type="com.songpring.project.notice.dto.NoticeDto" alias="noticeDto"/>
 		<typeAlias type="com.songpring.project.shop.dto.ShopReviewDto" alias="reviewDto"/>
 		<typeAlias type="com.songpring.project.qna.dto.QnADto" alias="qnaDto"/>
+		<typeAlias type="com.songpring.project.cart.dto.CartDto" alias="cartDto"/>
+		<typeAlias type="com.songpring.project.cart.dto.CartListDto" alias="cartListDto"/>
+		<typeAlias type="com.songpring.project.order.dto.OrderDto" alias="orderDto"/>
+		<typeAlias type="com.songpring.project.order.dto.OrderDetailDto" alias="orderDetailDto"/>
+		<typeAlias type="com.songpring.project.order.dto.OrderListDto" alias="orderListDto"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="com/songpring/project/mybatis/ShopMapper.xml"/>
