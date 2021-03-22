@@ -142,32 +142,27 @@ public class ShopController {
 	}
 
 	// 카트목록
-	@RequestMapping(value = "/shop/private/cartList", method = RequestMethod.GET)
-	public void getCartList(HttpSession session, Model model) {
-
-		UsersDto users = (UsersDto) session.getAttribute("users");
-		String userId = users.getId();
+	@RequestMapping("/shop/private/cartList")
+	public ModelAndView getCartList(HttpSession session, ModelAndView mView) {
+		String userId=(String)session.getAttribute("id");
 
 		List<CartListDto> cartList = service.cartList(userId);
-
-		model.addAttribute("cartList", cartList);
-
+		mView.addObject("cartList", cartList);
+		mView.setViewName("shop/private/cartList");
+		return mView;
 	}
 
 	// 카트 삭제
 	@ResponseBody
 	@RequestMapping(value = "/shop/private/deleteCart", method = RequestMethod.POST)
 	public int deleteCart(HttpSession session, @RequestParam(value = "chbox[]") List<String> chArr, CartDto cart){
-
-		UsersDto users = (UsersDto) session.getAttribute("users");
-		String userId = users.getId();
+		String userId = (String)session.getAttribute("id");
 
 		int result = 0;
 		int cartNum = 0;
 
-		if (users != null) {
+		if (userId != null) {
 			cart.setUserId(userId);
-
 			for (String i : chArr) {
 				cartNum = Integer.parseInt(i);
 				cart.setCartNum(cartNum);

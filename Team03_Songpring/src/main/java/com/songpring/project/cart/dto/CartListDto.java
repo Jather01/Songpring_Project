@@ -3,22 +3,24 @@ package com.songpring.project.cart.dto;
 import java.util.Date;
 
 public class CartListDto {
-	
+
 	private int cartNum;
 	private String userId;
 	private int gdsNum;
 	private int cartStock;
 	private Date addDate;
-	
+
 	private int num;
 	private String gdsName;
+	private String genre;
 	private int gdsPrice;
 	private String gdsThumbImg;
-	
-	public CartListDto() {}
-	
+
+	public CartListDto() {
+	}
+
 	public CartListDto(int cartNum, String userId, int gdsNum, int cartStock, Date addDate, int num, String gdsName,
-			int gdsPrice, String gdsThumbImg) {
+			String genre, int gdsPrice, String gdsThumbImg) {
 		super();
 		this.cartNum = cartNum;
 		this.userId = userId;
@@ -27,6 +29,7 @@ public class CartListDto {
 		this.addDate = addDate;
 		this.num = num;
 		this.gdsName = gdsName;
+		this.genre = genre;
 		this.gdsPrice = gdsPrice;
 		this.gdsThumbImg = gdsThumbImg;
 	}
@@ -87,6 +90,14 @@ public class CartListDto {
 		this.gdsName = gdsName;
 	}
 
+	public String getGenre() {
+		return genre;
+	}
+
+	public void setGenre(String genre) {
+		this.genre = genre;
+	}
+
 	public int getGdsPrice() {
 		return gdsPrice;
 	}
@@ -102,11 +113,5 @@ public class CartListDto {
 	public void setGdsThumbImg(String gdsThumbImg) {
 		this.gdsThumbImg = gdsThumbImg;
 	}
-	
-	
-	
-	
-	
-	
 
 }

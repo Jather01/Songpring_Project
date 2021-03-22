@@ -106,50 +106,16 @@
 						</tr>
 					</tbody>
 				</table>
-				<form action="${pageContext.request.contextPath }/shop/private/addCart.do" method="post">
-					<span>구매수량</span>
-					<input type="number" class="numBox" min="1" max="100" value="1"/>
-					<button type="submit" class="btn btn-primary">카트에 담기</button>
-				</form>
+				<span>구매수량</span>
+				<input type="hidden" name="gdsNum" id="gdsNum" value="${shopDto.num }" />
+				<input type="number" name="cartStock" id="cartStock" min="1" max="100" value="1"/>
+				<button type="submit" class="btn btn-primary" id="addCartBtn">카트에 담기</button>
 			</div>
 		</div>
 	</div>
 	<div>
 		<h4>책 설명</h4>
 		<p>${shopDto.content }</p>
-		<a href="${pageContext.request.contextPath }/users/member/private/buy.do">구매하기</a>
-		<p class="addToCart">
-			<button type="button" class="addCart_btn">카트에 담기</button>
-			<script>
-				$("#addCart_btn").click(function(){
-					var gdsNum = $("#gdsNum").val();
-					var cartStock = $(".numBox").val();
-				
-					var data = {
-						gdsNum : gdsNum,
-						cartStock : cartStock
-					};
-			   
-					$.ajax({
-						url : "${pageContext.request.contextPath }/shop/private/addCart.do",
-						type : "post",
-						data : data,
-						success : function(result){
-							if(result == 1) {
-								alert("카트 담기 성공");
-								$(".numBox").val("1");
-							} else {
-								alert("회원만 사용할 수 있습니다.")
-								$(".numBox").val("1");
-							}
-						},
-						error : function(){
-						alert("카트 담기 실패");
-						}
-					});
-				});
-			</script>
-		</p>
 	</div>
 	<c:if test="${sessionScope.userGrade eq 'manager'}">
 		<a class="btn btn-secondary" href="manager/updateform.do?num=${shopDto.num }">책 정보 수정</a>
@@ -296,6 +262,33 @@
 			location.href="delete.do?num=${dto.num}";
 		}
 	}
+	$(document).on("click","#addCartBtn", function(){
+		var gdsNum = $("#gdsNum").val();
+		var cartStock = $("#cartStock").val();
+	
+		var data = {
+			gdsNum : gdsNum,
+			cartStock : cartStock
+		};
+   
+		$.ajax({
+			url : "${pageContext.request.contextPath }/shop/private/addCart.do",
+			type : "post",
+			data : data,
+			success : function(result){
+				if(result == 1) {
+					alert("카트 담기 성공");
+					$("#cartStock").val("1");
+				} else {
+					alert("회원만 사용할 수 있습니다.")
+					$("#cartStock").val("1");
+				}
+			},
+			error : function(){
+			alert("카트 담기 실패");
+			}
+		});
+	});
 </script>
 </body>
 </html>
