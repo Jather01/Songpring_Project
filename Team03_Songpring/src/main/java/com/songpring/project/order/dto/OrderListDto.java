@@ -7,6 +7,7 @@ public class OrderListDto {
 	private String orderId;
 	private String userId;
 	private String orderRec;
+	private String addrNum;
 	private String userAddr1;
 	private String userAddr2;
 	private String userAddr3;
@@ -18,19 +19,21 @@ public class OrderListDto {
 	private int gdsNum;
 	private int cartStock;
 	
-	private int num;   //shopdto에서 num
+	private String title;   //shopdto에서 title
 	private String imagePath; // 책 표지
 	private int price; // 책 가격(원)
 	
 	private String delivery;
 
-	public OrderListDto(String orderId, String userId, String orderRec, String userAddr1, String userAddr2,
-			String userAddr3, String orderPhon, int amount, Date orderDate, int orderDetailsNum, int gdsNum,
-			int cartStock, int num, String imagePath, int price, String delivery) {
+	public OrderListDto() {}
+	public OrderListDto(String orderId, String userId, String orderRec, String addrNum, String userAddr1,
+			String userAddr2, String userAddr3, String orderPhon, int amount, Date orderDate, int orderDetailsNum,
+			int gdsNum, int cartStock, String title, String imagePath, int price, String delivery) {
 		super();
 		this.orderId = orderId;
 		this.userId = userId;
 		this.orderRec = orderRec;
+		this.addrNum = addrNum;
 		this.userAddr1 = userAddr1;
 		this.userAddr2 = userAddr2;
 		this.userAddr3 = userAddr3;
@@ -40,7 +43,7 @@ public class OrderListDto {
 		this.orderDetailsNum = orderDetailsNum;
 		this.gdsNum = gdsNum;
 		this.cartStock = cartStock;
-		this.num = num;
+		this.title = title;
 		this.imagePath = imagePath;
 		this.price = price;
 		this.delivery = delivery;
@@ -68,6 +71,14 @@ public class OrderListDto {
 
 	public void setOrderRec(String orderRec) {
 		this.orderRec = orderRec;
+	}
+
+	public String getAddrNum() {
+		return addrNum;
+	}
+
+	public void setAddrNum(String addrNum) {
+		this.addrNum = addrNum;
 	}
 
 	public String getUserAddr1() {
@@ -142,12 +153,12 @@ public class OrderListDto {
 		this.cartStock = cartStock;
 	}
 
-	public int getNum() {
-		return num;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setNum(int num) {
-		this.num = num;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getImagePath() {
@@ -173,8 +184,5 @@ public class OrderListDto {
 	public void setDelivery(String delivery) {
 		this.delivery = delivery;
 	}
-	
-	
-	
-	
+
 }

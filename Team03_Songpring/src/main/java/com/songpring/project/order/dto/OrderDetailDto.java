@@ -7,7 +7,6 @@ public class OrderDetailDto {
 	private int gdsNum;
 	private int cartStock;
 	
-	
 	public int getOrderDetailsNum() {
 		return orderDetailsNum;
 	}

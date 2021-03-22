@@ -42,13 +42,13 @@
 			<div class="invalid-feedback">이메일 형식을 확인 하세요.</div>
 		</div>
 		<div class="form-group">
-			<input type="text" id="sample2_postcode" placeholder="우편번호">
+			<input type="text" name="addrNum" id="sample2_postcode" placeholder="우편번호">
 			<input type="button" onclick="sample2_execDaumPostcode()" value="우편번호 찾기"><br>
 			<input type="text" name="userAddr1" id="sample2_address" placeholder="주소"><br>
 			<input type="text" name="userAddr2" id="sample2_detailAddress" placeholder="상세주소">
 			<input type="text" name="userAddr3" id="sample2_extraAddress" placeholder="참고항목">
 			<div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
-			<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
+				<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
 			</div>
 			
 			<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

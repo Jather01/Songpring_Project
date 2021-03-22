@@ -108,19 +108,36 @@
 	where cartNum = #{cartNum}
 	and userId = #{userId}
 </delete>
+<!-- 특정 유저의 주문 목록 -->
+<select id="orderList" parameterType="String" resultType="orderDto">
+	select orderId, userId, orderRec, addrNum, userAddr1, userAddr2, userAddr3, orderPhon, amount, orderDate
+	from songpring_order
+    where userId = #{userId}
+</select>
 <!-- 주문 정보 -->
 <insert id="orderInfo" parameterType="orderDto">
-	insert into SONGPRING_ORDER(orderId, userId, orderRec, userAddr1, userAddr2, userAddr3, orderPhon, amount)
-	values(#{orderId}, #{userId}, #{orderRec}, #{userAddr1}, #{userAddr2}, #{userAddr3}, #{orderPhon}, #{amount})
+	insert into SONGPRING_ORDER(orderId, userId, orderRec, addrNum, userAddr1, userAddr2, userAddr3, orderPhon, amount)
+	values(#{orderId}, #{userId}, #{orderRec}, #{addrNum}, #{userAddr1}, #{userAddr2}, #{userAddr3}, #{orderPhon}, #{amount})
 </insert>
-
 <!-- 주문 상세 정보 --> 
-<insert id="orderInfo_Details" parameterType="orderDetailDto">
+<insert id="orderInfo_Details" parameterType="orderDto">
 	insert into SONGPRING_ORDER_DETAILS(orderDetailsNum, orderId, gdsNum, cartStock)
 	select SONGPRING_ORDER_DETAILS_seq.nextval, #{orderId}, gdsNum, cartStock
-	from SONGPRING_CART
-</insert> 
-
+	from SONGPRING_CART c
+	WHERE c.userId=#{userId}
+</insert>
+<!-- 특정 주문 목록 -->
+<select id="orderView" parameterType="orderDto" resultType="orderListDto">
+	select o.orderId as orderId, o.userId as userId, o.orderRec as orderRec, o.addrNum as addrNum, o.userAddr1 as userAddr1,
+		o.userAddr2 as userAddr2, o.userAddr3 as userAddr3, o.orderPhon as orderPhon, o.amount as amount, o.orderDate as orderDate,
+		d.orderDetailsNum as orderDetailsNum, d.gdsNum as gdsNum, d.cartStock as cartStock, s.title as title, s.imagePath as imagePath, s.price as price
+	from SONGPRING_ORDER o
+	inner join SONGPRING_ORDER_DETAILS d
+		on o.orderId = d.orderId
+	inner join SONGPRING_SHOP s
+		on d.gdsNum = s.num
+	where o.userId = #{userId} AND o.orderId = #{orderId}
+</select>
 <!-- 카트 비우기 -->
 <delete id="cartAllDelete" parameterType="String">
 	delete SONGPRING_CART

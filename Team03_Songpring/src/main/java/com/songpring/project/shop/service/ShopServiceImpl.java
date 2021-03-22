@@ -2,7 +2,6 @@ package com.songpring.project.shop.service;
 
 import java.io.File;
 import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,13 +14,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.songpring.project.Exception.DBFailException;
 import com.songpring.project.cart.dto.CartDto;
 import com.songpring.project.cart.dto.CartListDto;
-import com.songpring.project.order.dto.OrderDetailDto;
 import com.songpring.project.order.dto.OrderDto;
+import com.songpring.project.order.dto.OrderListDto;
 import com.songpring.project.shop.dao.ShopDao;
 import com.songpring.project.shop.dao.ShopReviewDao;
 import com.songpring.project.shop.dto.ShopDto;
 import com.songpring.project.shop.dto.ShopReviewDto;
-import com.songpring.project.users.dao.UsersDao;
 
 @Service
 public class ShopServiceImpl implements ShopService {
@@ -30,8 +28,6 @@ public class ShopServiceImpl implements ShopService {
 	private ShopDao shopDao;
 	@Autowired
 	private ShopReviewDao reviewDao;
-	@Autowired
-	private UsersDao usersDao;
 
 	@Override
 	public void saveBook(ShopDto dto) {
@@ -281,12 +277,22 @@ public class ShopServiceImpl implements ShopService {
 		shopDao.deleteCart(cart);
 	}
 	@Override
+	public List<OrderDto> orderList(String userId) {
+		List<OrderDto> list=shopDao.orderList(userId);
+		return list;
+	}
+	@Override
 	public void orderInfo(OrderDto order) {
 		shopDao.orderInfo(order);	
 	}
 	@Override
-	public void orderInfo_Details(OrderDetailDto orderDetail) {
-		shopDao.orderInfo_Details(orderDetail);		
+	public void orderInfo_Details(OrderDto order) {
+		shopDao.orderInfo_Details(order);		
+	}
+	@Override
+	public List<OrderListDto> orderView(OrderDto order) {
+		List<OrderListDto> list=shopDao.orderView(order);
+		return list;
 	}
 	// 카트 비우기 
 	@Override

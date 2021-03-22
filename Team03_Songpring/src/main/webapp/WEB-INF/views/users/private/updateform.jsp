@@ -47,7 +47,7 @@
 			<input type="text" id="email" name="email" value="${dto.email }"/>
 		</div>
 		<div class="form-group">
-			<input type="text" id="sample2_postcode" placeholder="우편번호">
+			<input type="text" name="addrNum" id="sample2_postcode" placeholder="우편번호">
 			<input type="button" onclick="sample2_execDaumPostcode()" value="우편번호 찾기"><br>
 			<input type="text" id="sample2_address" name="userAddr1" value="${dto.userAddr1 }"><br>
 			<input type="text" id="sample2_detailAddress" name="userAddr2" value="${dto.userAddr2 }">

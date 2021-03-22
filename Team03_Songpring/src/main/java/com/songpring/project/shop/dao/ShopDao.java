@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.songpring.project.cart.dto.CartDto;
 import com.songpring.project.cart.dto.CartListDto;
-import com.songpring.project.order.dto.OrderDetailDto;
 import com.songpring.project.order.dto.OrderDto;
+import com.songpring.project.order.dto.OrderListDto;
 import com.songpring.project.shop.dto.ShopDto;
 
 public interface ShopDao {
@@ -31,10 +31,14 @@ public interface ShopDao {
 	public List<CartListDto> cartList(String userId);
 	//카트 삭제
 	public void deleteCart(CartDto cart);
+	// 특정 유저의 주문 목록
+	public List<OrderDto> orderList(String userId);
 	// 주문 정보
-	public void orderInfo(OrderDto order);	
+	public void orderInfo(OrderDto order);
 	// 주문 상세 정보
-	public void orderInfo_Details(OrderDetailDto orderDetail);
+	public void orderInfo_Details(OrderDto order);
+	// 특정 주문 보기
+	public List<OrderListDto> orderView(OrderDto order);
 	// 카트 비우기
 	public void cartAllDelete(String userId);
 }
