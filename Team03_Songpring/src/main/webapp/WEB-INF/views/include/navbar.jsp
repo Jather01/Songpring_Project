@@ -30,6 +30,14 @@
 		<li class="nav-item">
 		<a class="nav-link" style="color: #cecece; height: 65px; line-height: 65px;" href="${pageContext.request.contextPath }/qna/list.do">Q&A</a>
 		</li>
+		<c:if test="${empty sessionScope.id }">
+			<li class="nav-item">
+			<a class="nav-link" style="color: #cecece; height: 65px; line-height: 65px;" href="${pageContext.request.contextPath }/users/findid_form.do">ID찾기</a>
+			</li>
+			<li class="nav-item">
+			<a class="nav-link" style="color: #cecece; height: 65px; line-height: 65px;" href="${pageContext.request.contextPath }/users/findpwdform.do">PWD찾기</a>
+			</li>
+		</c:if>
 	</ul>
 	<div style="height: 20px"></div>
 </div>
