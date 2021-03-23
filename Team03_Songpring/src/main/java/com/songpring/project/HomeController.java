@@ -18,13 +18,9 @@ public class HomeController {
 		mView.setViewName("home");
 		return mView;
 	}
-	@RequestMapping("/test")
-	public String test() {
-		return "test";
-	}
-	@RequestMapping("/manager_error")
+	@RequestMapping("/error/manager_error")
 	public String managerError() {
-		return "manager_error";
+		return "error/manager_error";
 	}
 
 	@RequestMapping("/manager/managerPage")

@@ -22,6 +22,7 @@
 </style>
 </head>
 <body>
+<jsp:include page="../../include/navbar.jsp"></jsp:include>
 <div class="container">
 	<h1>가입정보 수정 폼 입니다.</h1>
 	<a id="profileLink" href="javascript:">
@@ -70,6 +71,7 @@
 		<button type="submit">업로드</button>
 	</form>
 </div>
+<jsp:include page="../../include/bottomnavbar.jsp"></jsp:include>
 <script>
 	//프로필 링크를 클릭했을때 실행할 함수 등록
 	$("#profileLink").on("click", function(){

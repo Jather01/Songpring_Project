@@ -8,8 +8,9 @@
 <jsp:include page="../include/resource.jsp"></jsp:include>
 </head>
 <body>
+<jsp:include page="../include/navbar.jsp"></jsp:include>
 <div class="container">
-	<h1>회원 가입 폼 입니다.</h1>
+	<h1>회원 가입</h1>
 	<!-- 
 		[ novalidate 로 웹브라우저 자체의 검증기능 사용하지 않기 ]
 		<input type="email" />  같은경우 웹브라우저가 직접 개입하기도 한다.
@@ -56,6 +57,7 @@
 		<button class="btn btn-outline-primary" type="submit">가입</button>
 	</form>
 </div>
+<jsp:include page="../include/bottomnavbar.jsp"></jsp:include>
 <script>
 	//[아이디를 검증할 정규 표현식]
 	//영문자 소문자로 시작하고 5~10 글자 이내인지 검증

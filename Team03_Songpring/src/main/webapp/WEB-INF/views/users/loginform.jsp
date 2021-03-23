@@ -55,6 +55,7 @@
 		
 </style>
 </head>
+<jsp:include page="../include/navbar.jsp"></jsp:include>
 <body class="text-center">
 <form class="form-signin" action="login.do" method="post">
 	<%-- 원래 가려던 목적지 정보를 url 이라는 파라미터 명으로 전송될수 있도록 한다. --%>
@@ -78,5 +79,6 @@
 	<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
 	<p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>
 </form>
+<jsp:include page="../include/bottomnavbar.jsp"></jsp:include>
 </body>
 </html>

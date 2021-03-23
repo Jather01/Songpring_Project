@@ -10,10 +10,10 @@
 </head>
 <body>
 <div class="container">
-	<p>
-		비밀번호를 수정했습니다. 새로운 비밀번호로 다시 로그인 해주십시오.
-		<a href="${pageContext.request.contextPath }/users/loginform.do">로그인</a>
-	</p>
+	<script>
+		alert("비밀번호를 수정했습니다. 새로운 비밀번호로 다시 로그인 해주십시오.");
+		location.href="${pageContext.request.contextPath }/users/loginform.do";
+	</script>
 </div>
 </body>
 </html>

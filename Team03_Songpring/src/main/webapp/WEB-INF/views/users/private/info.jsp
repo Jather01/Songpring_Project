@@ -65,6 +65,7 @@
 	<a href="updateform.do">개인 정보 수정</a>
 	<a href="javascript:deleteConfirm()">탈퇴</a>
 </div>
+<jsp:include page="../../include/bottomnavbar.jsp"></jsp:include>
 <script>
 	function deleteConfirm(){
 		let isDelete=confirm(" 회원님 탈퇴 하시겠습니까?");

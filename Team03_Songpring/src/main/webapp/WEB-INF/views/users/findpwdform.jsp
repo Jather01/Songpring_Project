@@ -9,8 +9,9 @@
 <jsp:include page="../include/resource.jsp"></jsp:include>
 </head>
 <body>
+<jsp:include page="../include/navbar.jsp"></jsp:include>
 <div class="container">
-	<h1>비밀번호 찾기 폼 입니다.</h1>
+	<h1>비밀번호 찾기</h1>
 	<form action="${pageContext.request.contextPath }/users/findpwdform2.do" method="post" id="myForm" novalidate>
 		<div class="form-group">
 			<label for="id">아이디</label>
@@ -19,6 +20,6 @@
 		<button class="btn btn-outline-primary" type="submit">확인</button>
 	</form>
 </div>
-
+<jsp:include page="../include/bottomnavbar.jsp"></jsp:include>
 </body>
 </html>

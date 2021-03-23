@@ -8,8 +8,9 @@
 <jsp:include page="../include/resource.jsp"></jsp:include>
 </head>
 <body>
+<jsp:include page="../include/navbar.jsp"></jsp:include>
 <div class="container">
-	<h1>비밀번호 수정 폼</h1>
+	<h1>비밀번호 수정</h1>
 	<form action="findpwd.do" method="post" id="myForm">
 		<div>
 			<input type="hidden" name="id" id="id" value="${id }"/>
@@ -24,6 +25,7 @@
 		<button type="reset">리셋</button>
 	</form>
 </div>
+<jsp:include page="../include/bottomnavbar.jsp"></jsp:include>
 <script>
 	//폼에 submit 이벤트가 일어났을때 실행할 함수를 등록하고 
 	document.querySelector("#myForm")
