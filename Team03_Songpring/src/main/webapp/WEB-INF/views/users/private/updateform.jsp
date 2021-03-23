@@ -24,7 +24,7 @@
 <body>
 <jsp:include page="../../include/navbar.jsp"></jsp:include>
 <div class="container">
-	<h1>가입정보 수정 폼 입니다.</h1>
+	<h1>가입정보 수정</h1>
 	<a id="profileLink" href="javascript:">
 		<c:choose>
 			<c:when test="${empty dto.profile }">
@@ -41,11 +41,11 @@
 	<form action="update.do" method="post">
 		<div>
 			<label for="id">아이디</label>
-			<input type="text" id="id" value="${id }" disabled/>
+			<input class="form-control" type="text" id="id" value="${id }" disabled/>
 		</div>
 		<div>
 			<label for="email">이메일</label>
-			<input type="text" id="email" name="email" value="${dto.email }"/>
+			<input class="form-control" type="text" id="email" name="email" value="${dto.email }"/>
 		</div>
 		<div class="form-group">
 			<input type="text" name="addrNum" id="sample2_postcode" placeholder="우편번호">
@@ -61,8 +61,8 @@
 			
 			<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 		</div>
-		<button type="submit">수정확인</button>
-		<button type="reset">취소</button>
+		<button class="btn btn-outline-primary" type="submit">수정확인</button>
+		<button class="btn btn-outline-danger" type="reset">취소</button>
 	</form>
 	<form action="profile_upload.do" method="post" 
 		enctype="multipart/form-data" id="profileForm">

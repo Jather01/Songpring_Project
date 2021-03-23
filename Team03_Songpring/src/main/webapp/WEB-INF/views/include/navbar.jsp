@@ -16,9 +16,9 @@
 		</li>
 		<li class="nav-item">
 			<c:choose>
+				<c:when test="${empty sessionScope.id}"><a class="nav-link" style="color: #cecece; height: 65px; line-height: 65px;" href="${pageContext.request.contextPath }/users/signup_form.do">회원가입</a></c:when>
 				<c:when test="${sessionScope.userGrade eq 'manager' }"><a class="nav-link" style="color: #cecece; height: 65px; line-height: 65px;" href="${pageContext.request.contextPath }/manager/managerPage.do">관리자페이지</a></c:when>
 				<c:when test="${sessionScope.userGrade eq 'user' }"><a class="nav-link" style="color: #cecece; height: 65px; line-height: 65px;" href="${pageContext.request.contextPath }/users/private/info.do">마이페이지</a></c:when>
-				<c:otherwise><a class="nav-link" style="color: #cecece; height: 65px; line-height: 65px;" href="${pageContext.request.contextPath }/users/signup_form.do">회원가입</a></c:otherwise>
 			</c:choose>
 		</li>
 		<li class="nav-item">

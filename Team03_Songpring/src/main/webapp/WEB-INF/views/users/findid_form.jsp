@@ -12,7 +12,7 @@
 <body>
 <jsp:include page="../include/navbar.jsp"></jsp:include>
 <div class="container">
-	<h1>아이디 찾기 폼 입니다.</h1>
+	<h1>아이디 찾기 폼</h1>
 	<form action="${pageContext.request.contextPath }/users/findid.do" method="post" id="myForm" novalidate>
 		<div class="form-group">
 			<label for="id">이름</label>

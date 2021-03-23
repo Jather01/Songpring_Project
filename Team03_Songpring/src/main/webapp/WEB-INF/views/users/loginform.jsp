@@ -55,7 +55,6 @@
 		
 </style>
 </head>
-<jsp:include page="../include/navbar.jsp"></jsp:include>
 <body class="text-center">
 <form class="form-signin" action="login.do" method="post">
 	<%-- 원래 가려던 목적지 정보를 url 이라는 파라미터 명으로 전송될수 있도록 한다. --%>
@@ -76,9 +75,10 @@
 	      <input type="checkbox" name="isSave" value="yes"> 로그인 정보 저장
 	    </label>
 	</div>
+	<a href="${pageContext.request.contextPath }/users/findid_form.do" style="color: #000">아이디 찾기</a>
+	<a href="${pageContext.request.contextPath }/users/findpwdform.do" style="color: #000">비밀번호 찾기</a>
 	<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
 	<p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>
 </form>
-<jsp:include page="../include/bottomnavbar.jsp"></jsp:include>
 </body>
 </html>

@@ -73,7 +73,7 @@
 				</c:choose>
 			</ul>
 		</nav>
-		<form action="list.do" method="get">
+		<form action="list.do" method="get" style="float:left; width: 50%;  margin-bottom: 10px;">
 			<select name="condition" id="condition">
 				<option value="title_content" ${condition eq 'title_content' ? 'selected' : '' }>제목+내용</option>
 				<option value="title" ${condition eq 'title' ? 'selected' : '' }>제목</option>
@@ -82,6 +82,9 @@
 			<input type="text" name="keyword" value="${keyword }"/>
 			<button type="submit">검색</button>
 		</form>
+		<div style="float:left; width: 50%; text-align: right; margin-bottom: 10px;">
+			<a class="btn btn-success" href="${pageContext.request.contextPath }/qna/private/insertform.do">QnA 작성</a>
+		</div>
 		<!-- 만약 검색 키워드가 존재한다면 몇개의 글이 검색되었는지 알려준다. -->
 		<c:if test="${empty not keyword }">
 			<div class="alert alert-success"><strong>${totalRow}</strong>개의 자료가 검색 되었습니다.</div>

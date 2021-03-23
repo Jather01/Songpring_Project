@@ -52,12 +52,12 @@
 		<div class="navbar-nav" style="width: 100%;">
 			<table style="width: 100%;">
 				<tr>
-					<td align = "center"><a class="nav-link" href="${pageContext.request.contextPath }/shop/list1.do">전체</a></td>
-					<td align = "center"><a class="nav-link" href="${pageContext.request.contextPath }/shop/list1.do?genre=novel">소설</a></td>
-					<td align = "center"><a class="nav-link" href="${pageContext.request.contextPath }/shop/list1.do?genre=culture">교양</a></td>
-					<td align = "center"><a class="nav-link" href="${pageContext.request.contextPath }/shop/list1.do?genre=workbook">문제집</a></td>
-					<td align = "center"><a class="nav-link" href="${pageContext.request.contextPath }/shop/list1.do?genre=comicbook">만화</a></td>
-					<td align = "center"><a class="nav-link" href="${pageContext.request.contextPath }/shop/list1.do?genre=dictionary">사전</a></td>
+					<td align = "center"><a class="nav-link ${empty genre? 'active':'' }" href="${pageContext.request.contextPath }/shop/list1.do">전체</a></td>
+					<td align = "center"><a class="nav-link ${genre eq 'novel'? 'active':'' }" href="${pageContext.request.contextPath }/shop/list1.do?genre=novel">소설</a></td>
+					<td align = "center"><a class="nav-link ${genre eq 'culture'? 'active':'' }" href="${pageContext.request.contextPath }/shop/list1.do?genre=culture">교양</a></td>
+					<td align = "center"><a class="nav-link ${genre eq 'workbook'? 'active':'' }" href="${pageContext.request.contextPath }/shop/list1.do?genre=workbook">문제집</a></td>
+					<td align = "center"><a class="nav-link ${genre eq 'comicbook'? 'active':'' }" href="${pageContext.request.contextPath }/shop/list1.do?genre=comicbook">만화</a></td>
+					<td align = "center"><a class="nav-link ${genre eq 'dictionary'? 'active':'' }" href="${pageContext.request.contextPath }/shop/list1.do?genre=dictionary">사전</a></td>
 					<td align = "center" style="width: 10%">
 						<div class="btn-group">
 							<button type="button" class="btn btn-primary dropdown-toggle"

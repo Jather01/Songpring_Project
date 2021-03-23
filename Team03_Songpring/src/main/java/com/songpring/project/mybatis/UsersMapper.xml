@@ -104,4 +104,9 @@
 		SET pwd=#{newPwd}
 		WHERE id=#{id}
 	</update>
+	<update id="updateProfile" parameterType="usersDto">
+		UPDATE users
+		SET profile=#{profile}
+		WHERE id=#{id}
+	</update>
 </mapper>

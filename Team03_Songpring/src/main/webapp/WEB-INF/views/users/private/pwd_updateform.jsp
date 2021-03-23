@@ -14,18 +14,18 @@
 	<form action="pwd_update.do" method="post" id="myForm">
 		<div>
 			<label for="pwd">기존 비밀번호</label>
-			<input type="password" name="pwd" id="pwd"/>
+			<input class="form-control" type="password" name="pwd" id="pwd"/>
 		</div>
 		<div>
 			<label for="newPwd">새 비밀번호</label>
-			<input type="password" name="newPwd" id="newPwd"/>
+			<input class="form-control" type="password" name="newPwd" id="newPwd"/>
 		</div>
 		<div>
 			<label for="newPwd2">새 비밀번호 확인</label>
-			<input type="password" id="newPwd2"/>
+			<input class="form-control" type="password" id="newPwd2"/>
 		</div>
-		<button type="submit">수정하기</button>
-		<button type="reset">리셋</button>
+		<button class="btn btn-outline-primary" type="submit">수정하기</button>
+		<button class="btn btn-outline-danger" type="reset">리셋</button>
 	</form>
 </div>
 <jsp:include page="../../include/bottomnavbar.jsp"></jsp:include>

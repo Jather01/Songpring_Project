@@ -37,24 +37,21 @@
 <div class="container">
 	<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 		<div class="carousel-inner">
-			<c:forEach var="i" begin="0" end="2">
-				<c:choose>
-					<c:when test="${i eq 0 }">
-						<a href="${pageContext.request.contextPath }/shop/detail.do?num=${list[i].num}">
-							<div class="carousel-item active">
-								<img src="${pageContext.request.contextPath }${list[i].imagePath}" class="d-block w-100" height="300" style="object-fit: contain;">
-							</div>
-						</a>
-					</c:when>
-					<c:otherwise>
-						<a href="${pageContext.request.contextPath }/shop/detail.do?num=${list[i].num}">
-							<div class="carousel-item">
-								<img src="${pageContext.request.contextPath }${list[i].imagePath}" class="d-block w-100" height="300" style="object-fit: contain;">
-							</div>
-						</a>
-					</c:otherwise>
-				</c:choose>
-			</c:forEach>
+			<div class="carousel-item active">
+				<a href="${pageContext.request.contextPath }/shop/detail.do?num=${list[0].num}">
+						<img src="${pageContext.request.contextPath }${list[0].imagePath}" class="d-block w-100" height="300" style="object-fit: contain;">
+				</a>
+			</div>
+			<div class="carousel-item">
+				<a href="${pageContext.request.contextPath }/shop/detail.do?num=${list[1].num}">
+						<img src="${pageContext.request.contextPath }${list[1].imagePath}" class="d-block w-100" height="300" style="object-fit: contain;">
+				</a>
+			</div>
+			<div class="carousel-item">
+				<a href="${pageContext.request.contextPath }/shop/detail.do?num=${list[2].num}">
+						<img src="${pageContext.request.contextPath }${list[2].imagePath}" class="d-block w-100" height="300" style="object-fit: contain;">
+				</a>
+			</div>
 		</div>
 		<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
 			<img src="${pageContext.request.contextPath }/resources/images/left_arrow.png" width="50" height="50"/>
@@ -82,7 +79,8 @@
 							<c:when test="${list[3].genre eq 'dictionary'}">사전</c:when>
 						</c:choose>
 						] <a href="${pageContext.request.contextPath }/shop/detail.do?num=${list[3].num}">${list[3].title }</a></h5>
-				<p class="card-text"><small>저자</small> ${list[3].writer } | <small>출판</small> ${list[3].publisher } | ${list[3].regdate }</p>
+				<p class="card-text"><small>저자</small> ${list[3].writer } | <small>출판</small> ${list[3].publisher }</p>
+				<p class="card-text">${list[3].regdate } 출판</p>
 				<p class="card-text">${list[3].price } 원</p>
 			</div>
 		</div>

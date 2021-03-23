@@ -22,6 +22,7 @@
 				</td>
 			</tr>
 		</table>
+	<a class="btn btn-outline-primary" href="${pageContext.request.contextPath }/notice/manager/updateform.do?num=${dto.num}">수정</a>
 	</div>
 <jsp:include page="../include/bottomnavbar.jsp"></jsp:include>
 </body>
