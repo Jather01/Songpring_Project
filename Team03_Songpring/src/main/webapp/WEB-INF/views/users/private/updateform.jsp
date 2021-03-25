@@ -84,8 +84,6 @@
 		$("#profileForm").submit();
 	});
 	
-	
-	
 	// 우편번호 찾기 화면을 넣을 element
     var element_layer = document.getElementById('layer');
 

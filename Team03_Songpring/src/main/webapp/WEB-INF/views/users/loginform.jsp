@@ -77,7 +77,8 @@
 	</div>
 	<a href="${pageContext.request.contextPath }/users/findid_form.do" style="color: #000">아이디 찾기</a>
 	<a href="${pageContext.request.contextPath }/users/findpwdform.do" style="color: #000">비밀번호 찾기</a>
-	<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+	<button class="btn btn-lg btn-primary btn-block" type="submit">로그인</button>
+	<a href="${pageContext.request.contextPath }/users/signup_form.do" class="btn btn-lg btn-warning btn-block" style="color: #FFF">회원 가입</a>
 	<p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>
 </form>
 </body>

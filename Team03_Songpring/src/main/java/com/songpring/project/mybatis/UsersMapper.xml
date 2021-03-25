@@ -74,7 +74,7 @@
 		WHERE id=#{id}
 	</delete>
 	<select id="getData" parameterType="String" resultType="usersDto">
-		SELECT id, name, pwd, email, addrNum, userAddr1, userAddr2, userAddr3,
+		SELECT id, name, pwd, email, profile, addrNum, userAddr1, userAddr2, userAddr3,
 		TO_CHAR(regdate, 'YY-MM-DD HH24:MI') AS regdate
 		FROM users
 		WHERE id=#{id}
